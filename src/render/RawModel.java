@@ -1,5 +1,7 @@
 package render;
 
+//Temporary class to store the data as one object...forgot the name
+
 public class RawModel {
 
 	public int vaoID;

@@ -16,16 +16,16 @@ public class MainGameLoop {
 		float[] vertices = {
 				//Left bottom and top right, resp.
 			-0.5f, 0.5f, 0f,	
-			-0.5f, -0.5f, 0f,	
-			0.5f, -0.5f, 0f,	
-			
+			-0.5f, -0.5f, 0f,
 			0.5f, -0.5f, 0f,
-			0.5f, 0.5f, 0f,	
-			-0.5f, 0.5f, 0f	
+			0.5f, 0.5f, 0f
 		};
 		
-		RawModel model = loader.loadToVAO(vertices);
+		int[] indices = {0,1,3,3,1,2};
 		
+		RawModel model = loader.loadToVAO(vertices, indices);
+		
+		//Keep updating the display until the user exits
 		while (!Display.isCloseRequested())
 		{
 			renderer.prepare();
@@ -33,6 +33,7 @@ public class MainGameLoop {
 			DisplayManager.updateDisplay();
 		}
 		
+		//Clean up data
 		loader.cleanData();
 		DisplayManager.closeDisplay();
 	}
