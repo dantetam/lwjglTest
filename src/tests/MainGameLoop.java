@@ -3,6 +3,7 @@ package tests;
 import org.lwjgl.opengl.Display;
 
 import render.*;
+import shaders.StaticShader;
 
 public class MainGameLoop {
 	
@@ -11,6 +12,7 @@ public class MainGameLoop {
 		DisplayManager.createDisplay();
 		Loader loader = new Loader();
 		Renderer renderer = new Renderer();
+		StaticShader shader = new StaticShader();
 		
 		//counter clockwise vertices
 		float[] vertices = {
@@ -21,6 +23,7 @@ public class MainGameLoop {
 			0.5f, 0.5f, 0f
 		};
 		
+		//order in which to transverse the vertices
 		int[] indices = {0,1,3,3,1,2};
 		
 		RawModel model = loader.loadToVAO(vertices, indices);
@@ -29,11 +32,14 @@ public class MainGameLoop {
 		while (!Display.isCloseRequested())
 		{
 			renderer.prepare();
+			shader.start();
 			renderer.render(model);
+			shader.stop();
 			DisplayManager.updateDisplay();
 		}
 		
 		//Clean up data
+		shader.cleanUp();
 		loader.cleanData();
 		DisplayManager.closeDisplay();
 	}

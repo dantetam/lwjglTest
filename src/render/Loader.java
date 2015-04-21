@@ -23,6 +23,7 @@ public class Loader {
 		bindIndicesBuffer(indices);
 		storeData(0, pos);
 		unbindVAO();
+		//There are repeats in the old pos[] so indices now contains the correct number of indices
 		return new RawModel(vaoID,indices.length);
 	}
 	
@@ -68,13 +69,14 @@ public class Loader {
 	
 	private void bindIndicesBuffer(int[] indices)
 	{
-		int vboID = GL15.glGenBuffers();
-		vbos.add(vboID);
-		GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, vboID);
+		int vboID = GL15.glGenBuffers(); //Request a VBO id
+		vbos.add(vboID); 
+		GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, vboID); //Note "ELEMENT_ARRAY" not "ARRAY"
 		IntBuffer buffer = toIntBuffer(indices);
-		GL15.glBufferData(GL15.GL_ELEMENT_ARRAY_BUFFER, buffer, GL15.GL_STATIC_DRAW);
+		GL15.glBufferData(GL15.GL_ELEMENT_ARRAY_BUFFER, buffer, GL15.GL_STATIC_DRAW); //Store the data in the bound VBO
 	}
 	
+	//Convert arrays of numbers to the respective buffers
 	private IntBuffer toIntBuffer(int[] data)
 	{
 		IntBuffer buffer = BufferUtils.createIntBuffer(data.length);
@@ -82,8 +84,6 @@ public class Loader {
 		buffer.flip();
 		return buffer;
 	}
-	
-	//Convert an array of floats to a float buffer object
 	private FloatBuffer toFloatBuffer(float[] data)
 	{
 		FloatBuffer buffer = BufferUtils.createFloatBuffer(data.length);

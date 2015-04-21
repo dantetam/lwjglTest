@@ -20,8 +20,11 @@ public class Renderer {
 		GL20.glEnableVertexAttribArray(0);
 		//0 indicates the first vertex to be drawn in triangles
 		//vertexCount property indicates upper bound
-		//GL11.glDrawArrays(GL11.GL_TRIANGLES, 0, model.vertexCount);
+		
+		//GL11.glDrawArrays(GL11.GL_TRIANGLES, 0, model.vertexCount); 
+		//replace the above method because we are using
 		GL11.glDrawElements(GL11.GL_TRIANGLES, model.vertexCount, GL11.GL_UNSIGNED_INT, 0);
+		
 		GL20.glDisableVertexAttribArray(0);
 		GL30.glBindVertexArray(0); //Unbind the current bound VAO
 	}
