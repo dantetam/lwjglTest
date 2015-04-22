@@ -1,4 +1,4 @@
-package render;
+package models;
 
 //Temporary class to store the data as one object...forgot the name
 

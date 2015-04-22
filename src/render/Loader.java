@@ -1,30 +1,52 @@
 package render;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
+
+import models.RawModel;
 
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
+import org.newdawn.slick.opengl.Texture;
+import org.newdawn.slick.opengl.TextureLoader;
 
 public class Loader {
 
 	//Store VAOs and VBOs indices as reference for future clean up
 	private ArrayList<Integer> vaos = new ArrayList<Integer>();
 	private ArrayList<Integer> vbos = new ArrayList<Integer>();
+	private ArrayList<Integer> textures = new ArrayList<Integer>();
 	
 	//Create a new model from float data, which accessed by the renderer
-	public RawModel loadToVAO(float[] pos, int[] indices)
+	public RawModel loadToVAO(float[] pos, float[] textureCoords, int[] indices)
 	{
 		int vaoID = createVAO();
 		bindIndicesBuffer(indices);
-		storeData(0, pos);
+		storeData(0, 3, pos); //Store the position (3-tuples) in pos 0 of the VAO
+		storeData(1, 2, textureCoords);
 		unbindVAO();
 		//There are repeats in the old pos[] so indices now contains the correct number of indices
 		return new RawModel(vaoID,indices.length);
+	}
+	
+	public int loadTexture(String fileName)
+	{
+		Texture texture = null;
+		try 
+		{
+			texture = TextureLoader.getTexture("PNG",new FileInputStream("res/"+fileName+".png"));
+		} 
+		catch (Exception e) {e.printStackTrace();}
+		int textureID = texture.getTextureID();
+		textures.add(textureID);
+		return textureID;
 	}
 	
 	//Delete VAOs and VBOs by finding their vertices
@@ -34,6 +56,8 @@ public class Loader {
 			GL30.glDeleteVertexArrays(i);
 		for (int i: vbos)
 			GL15.glDeleteBuffers(i);
+		for (int i: textures)
+			GL11.glDeleteTextures(i);
 	}
 	
 	//Request a new VAO id, store that ID, and bind it
@@ -45,7 +69,7 @@ public class Loader {
 		return vaoID;
 	}
 	
-	private void storeData(int attribNum, float[] data)
+	private void storeData(int attribNum, int coordinateSize, float[] data)
 	{
 		int vboID = GL15.glGenBuffers(); //Request a VBO id
 		vbos.add(vboID);
@@ -56,7 +80,7 @@ public class Loader {
 		GL15.glBufferData(GL15.GL_ARRAY_BUFFER, buffer, GL15.GL_STATIC_DRAW);
 		
 		//Indicate that triangles are being drawn
-		GL20.glVertexAttribPointer(attribNum,3,GL11.GL_FLOAT,false,0,0);
+		GL20.glVertexAttribPointer(attribNum,coordinateSize,GL11.GL_FLOAT,false,0,0);
 		
 		GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0); //Unbind the current VBO being used
 	}
