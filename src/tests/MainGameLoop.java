@@ -4,14 +4,23 @@ import models.RawModel;
 import models.TexturedModel;
 
 import org.lwjgl.opengl.Display;
+import org.lwjgl.util.vector.Vector3f;
 
+import entities.Entity;
 import render.*;
 import shaders.StaticShader;
 import textures.ModelTexture;
 
 public class MainGameLoop {
 	
+	public int frameCount = 0;
+	
 	public static void main(String[] args)
+	{
+		new MainGameLoop();
+	}
+	
+	public MainGameLoop()
 	{
 		DisplayManager.createDisplay();
 		Loader loader = new Loader();
@@ -36,15 +45,18 @@ public class MainGameLoop {
 		RawModel model = loader.loadToVAO(vertices, textureCoords, indices);
 		ModelTexture texture = new ModelTexture(loader.loadTexture("blueplasma"));
 		TexturedModel texturedModel = new TexturedModel(model, texture);
+		Entity entity = new Entity(texturedModel,new Vector3f(-0.25F,0,0),0,0,0,1);
 		
 		//Keep updating the display until the user exits
 		while (!Display.isCloseRequested())
 		{
+			entity.rotate(0,0,1);
 			renderer.prepare();
 			shader.start(); //Enable shader
-			renderer.render(texturedModel);
+			renderer.render(entity,shader);
 			shader.stop(); //Disable shader when the draw is done
 			DisplayManager.updateDisplay();
+			frameCount++;
 		}
 		
 		//Clean up data

@@ -3,9 +3,13 @@ package shaders;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.FloatBuffer;
 
+import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
+import org.lwjgl.util.vector.Matrix4f;
+import org.lwjgl.util.vector.Vector3f;
 
 //'Template' for the general shader class
 
@@ -23,9 +27,40 @@ public abstract class ShaderProgram {
 		//Link the program to shaders
 		GL20.glAttachShader(programID, vertexShaderID);
 		GL20.glAttachShader(programID, fragmentShaderID);
+		bindAttributes();
 		GL20.glLinkProgram(programID);
 		GL20.glValidateProgram(programID);
-		bindAttributes();
+		getAllUniformLocations();
+	}
+	
+	protected abstract void getAllUniformLocations();
+	
+	//Get the ID of a stored uniform variable in shader
+	protected int getUniformLocation(String uniformName)
+	{
+		return GL20.glGetUniformLocation(programID, uniformName);
+	}
+	
+	//Same values to locations in the GLSL uniform variables of various types
+	protected void loadFloat(int location, float value) {GL20.glUniform1f(location, value);}
+	protected void loadVector(int location, Vector3f vector) {GL20.glUniform3f(location, vector.x, vector.y, vector.z);}
+
+	protected void loadBoolean(int location, boolean value)
+	{
+		//Convert boolean to a 1 or 0 and store it as a float
+		float toLoad = value ? 1 : 0;
+		GL20.glUniform1f(location, toLoad);
+	}
+	
+	//Temporary FloatBuffer to be used as this class's tool
+	private static FloatBuffer matrixBuffer = BufferUtils.createFloatBuffer(16);
+	protected void loadMatrix(int location, Matrix4f matrix)
+	{
+		//Convert matrix to be used in a buffer object which is stored in the GLSL code
+		matrix.store(matrixBuffer);
+		matrixBuffer.flip();
+		//GL20.glUniformMatrix2(location, false, matrixBuffer); //SHOOT ME!!!
+		GL20.glUniformMatrix4(location, false, matrixBuffer);
 	}
 	
 	public void start()

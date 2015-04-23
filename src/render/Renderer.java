@@ -7,6 +7,12 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
+import org.lwjgl.util.vector.Matrix4f;
+
+import shaders.ShaderProgram;
+import shaders.StaticShader;
+import toolbox.Maths;
+import entities.Entity;
 
 public class Renderer {
 
@@ -18,14 +24,25 @@ public class Renderer {
 	
 	//The textured model encapsulates a RawModel
 	//Access a VAO by using the data contained within a RawModel object
-	public void render(TexturedModel texturedModel)
+	public void render(Entity entity, StaticShader shader)
 	{
+		TexturedModel texturedModel = entity.getModel();
 		RawModel model = texturedModel.getRawModel();
 		
 		//Whenever a VAO is edited, it must be bound
 		GL30.glBindVertexArray(model.vaoID);
 		GL20.glEnableVertexAttribArray(0);
 		GL20.glEnableVertexAttribArray(1);
+		
+		//Access transformMatrix
+		Matrix4f transformMatrix = Maths.createTransformMatrix(
+				entity.position, 
+				entity.rotX, 
+				entity.rotY, 
+				entity.rotZ, 
+				entity.scale
+				);
+		shader.loadTransformMatrix(transformMatrix);
 		
 		//Texture bank 0
 		GL13.glActiveTexture(GL13.GL_TEXTURE0);
