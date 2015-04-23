@@ -24,8 +24,8 @@ public class MainGameLoop {
 	{
 		DisplayManager.createDisplay();
 		Loader loader = new Loader();
-		Renderer renderer = new Renderer();
 		StaticShader shader = new StaticShader();
+		Renderer renderer = new Renderer(shader);
 		
 		//counter clockwise vertices
 		float[] vertices = {
@@ -45,12 +45,13 @@ public class MainGameLoop {
 		RawModel model = loader.loadToVAO(vertices, textureCoords, indices);
 		ModelTexture texture = new ModelTexture(loader.loadTexture("blueplasma"));
 		TexturedModel texturedModel = new TexturedModel(model, texture);
-		Entity entity = new Entity(texturedModel,new Vector3f(-0.25F,0,0),0,0,0,1);
+		Entity entity = new Entity(texturedModel,new Vector3f(0,0,-1),0,0,0,1);
 		
 		//Keep updating the display until the user exits
 		while (!Display.isCloseRequested())
 		{
-			entity.rotate(0,0,1);
+			entity.move(0,0,-0.01f);
+			entity.rotate(0, 0, -1);
 			renderer.prepare();
 			shader.start(); //Enable shader
 			renderer.render(entity,shader);

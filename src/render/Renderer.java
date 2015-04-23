@@ -3,6 +3,7 @@ package render;
 import models.RawModel;
 import models.TexturedModel;
 
+import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL20;
@@ -16,6 +17,20 @@ import entities.Entity;
 
 public class Renderer {
 
+	private static final float FOV = 70, NEAR_PLANE = 0.1f, FAR_PLANE = 1000f;
+	
+	private Matrix4f projectionMatrix;
+	
+	public Renderer(StaticShader shader)
+	{
+		//Create a new matrix, for the first time
+		createProjectionMatrix();
+		//Access the shader to load the projectionMatrix
+		shader.start();
+		shader.loadProjectionMatrix(projectionMatrix);
+		shader.stop();
+	}
+	
 	public void prepare()
 	{
 		GL11.glClearColor(1,0,0,0);
@@ -60,6 +75,24 @@ public class Renderer {
 		GL20.glEnableVertexAttribArray(1);
 		
 		GL30.glBindVertexArray(0); //Unbind the current bound VAO
+	}
+	
+	private void createProjectionMatrix()
+	{
+		float ar = (float)Display.getWidth()/(float)Display.getHeight();
+		float yScale = (float)(1f/Math.tan(Math.toRadians(FOV/2f)))*ar;
+		float xScale = yScale/ar;
+		float frustumLength = FAR_PLANE - NEAR_PLANE;
+		
+		//Set up the projection matrix by declaring discrete values
+		//These values are calculated by matrix math
+		projectionMatrix = new Matrix4f(); //Initialized to zeroes, not identity
+		projectionMatrix.m00 = xScale;
+		projectionMatrix.m11 = yScale;
+		projectionMatrix.m22 = (FAR_PLANE + NEAR_PLANE)/-frustumLength;
+		projectionMatrix.m23 = -1;
+		projectionMatrix.m32 = -(2*FAR_PLANE*NEAR_PLANE / frustumLength);
+		projectionMatrix.m33 = 0;
 	}
 
 }

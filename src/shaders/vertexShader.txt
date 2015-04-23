@@ -7,10 +7,11 @@ in vec2 textureCoords;
 out vec2 passTextureCoords;
 
 uniform mat4 transformMatrix;
+uniform mat4 projectionMatrix;
 
 void main(void)
 {
-	gl_Position = transformMatrix * vec4(position,1.0);
+	gl_Position = projectionMatrix * transformMatrix * vec4(position,1.0);
 	//color = vec3(position.x+0.5,1.0,position.y+0.5);
 	passTextureCoords = textureCoords;
 }
