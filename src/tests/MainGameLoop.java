@@ -121,6 +121,9 @@ public class MainGameLoop {
 		//RawModel model = loader.loadToVAO(vertices, textureCoords, indices);
 		RawModel model = OBJLoader.loadObjModel("dragon", loader);
 		ModelTexture texture = new ModelTexture(loader.loadTexture("bluePlasma"));
+		texture.shineDamper = 50;
+		texture.reflectiveness = 0;
+		
 		TexturedModel texturedModel = new TexturedModel(model, texture);
 		Entity entity = new Entity(texturedModel,new Vector3f(0,0,-20),0,0,0,1);
 		

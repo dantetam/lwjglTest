@@ -12,6 +12,7 @@ import org.lwjgl.util.vector.Matrix4f;
 
 import shaders.ShaderProgram;
 import shaders.StaticShader;
+import textures.ModelTexture;
 import toolbox.Maths;
 import entities.Entity;
 
@@ -60,6 +61,8 @@ public class Renderer {
 				entity.scale
 				);
 		shader.loadTransformMatrix(transformMatrix);
+		ModelTexture texture = texturedModel.getTexture();
+		shader.loadShineVariables(texture.shineDamper, texture.reflectiveness);
 		
 		//Texture bank 0
 		GL13.glActiveTexture(GL13.GL_TEXTURE0);

@@ -13,6 +13,7 @@ public class StaticShader extends ShaderProgram {
 	
 	private int locationTransformMatrix, locationProjectionMatrix, locationViewMatrix;
 	private int locationLightPosition, locationLightColor;
+	private int locationShineDamper, locationReflectiveness;
 	
 	public StaticShader() 
 	{
@@ -34,6 +35,8 @@ public class StaticShader extends ShaderProgram {
 		locationViewMatrix = super.getUniformLocation("viewMatrix");
 		locationLightPosition = super.getUniformLocation("lightPosition");
 		locationLightColor = super.getUniformLocation("lightColor");
+		locationShineDamper = super.getUniformLocation("shineDamper");
+		locationReflectiveness = super.getUniformLocation("reflectiveness");
 	}
 
 	public void loadTransformMatrix(Matrix4f matrix) {super.loadMatrix(locationTransformMatrix, matrix);}
@@ -42,6 +45,11 @@ public class StaticShader extends ShaderProgram {
 	{
 		super.loadVector(locationLightPosition, light.position);
 		super.loadVector(locationLightColor, light.color);
+	}
+	public void loadShineVariables(float d, float r)
+	{
+		super.loadFloat(locationShineDamper, d);
+		super.loadFloat(locationReflectiveness, r);
 	}
 	
 	//Create a new view matrix based on the properties of the camera
