@@ -25,7 +25,7 @@ public class OBJLoader {
 		ArrayList<Vector2f> textures = new ArrayList<Vector2f>();
 		ArrayList<Vector3f> normals = new ArrayList<Vector3f>();
 		ArrayList<Integer> indices = new ArrayList<Integer>();
-		float[] verticesArray, normalsArray, textureArray = null;
+		float[] verticesArray, normalsArray = null, textureArray = null;
 		int[] indicesArray;
 		try
 		{
@@ -106,7 +106,7 @@ public class OBJLoader {
 		{
 			indicesArray[i] = indices.get(i);
 		}
-		return loader.loadToVAO(verticesArray, textureArray, indicesArray);
+		return loader.loadToVAO(verticesArray, textureArray, normalsArray, indicesArray);
 	}
 	
 	private static void processVertex(

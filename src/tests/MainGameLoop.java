@@ -8,6 +8,7 @@ import org.lwjgl.util.vector.Vector3f;
 
 import entities.Camera;
 import entities.Entity;
+import entities.Light;
 import render.*;
 import shaders.StaticShader;
 import textures.ModelTexture;
@@ -118,11 +119,12 @@ public class MainGameLoop {
 		};*/
 		
 		//RawModel model = loader.loadToVAO(vertices, textureCoords, indices);
-		RawModel model = OBJLoader.loadObjModel("stall", loader);
-		ModelTexture texture = new ModelTexture(loader.loadTexture("stallTexture"));
+		RawModel model = OBJLoader.loadObjModel("dragon", loader);
+		ModelTexture texture = new ModelTexture(loader.loadTexture("bluePlasma"));
 		TexturedModel texturedModel = new TexturedModel(model, texture);
 		Entity entity = new Entity(texturedModel,new Vector3f(0,0,-20),0,0,0,1);
 		
+		Light light = new Light(new Vector3f(0,0,-5), new Vector3f(1,1,1));
 		Camera camera = new Camera();
 		
 		//Keep updating the display until the user exits
@@ -134,6 +136,8 @@ public class MainGameLoop {
 			camera.move();
 			
 			shader.start(); //Enable shader
+			shader.loadLight(light);
+			
 			shader.loadViewMatrix(camera);
 			renderer.render(entity,shader);
 			shader.stop(); //Disable shader when the draw is done

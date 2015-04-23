@@ -25,12 +25,13 @@ public class Loader {
 	private ArrayList<Integer> textures = new ArrayList<Integer>();
 	
 	//Create a new model from float data, which accessed by the renderer
-	public RawModel loadToVAO(float[] pos, float[] textureCoords, int[] indices)
+	public RawModel loadToVAO(float[] pos, float[] textureCoords, float[] normals, int[] indices)
 	{
 		int vaoID = createVAO();
 		bindIndicesBuffer(indices);
 		storeData(0, 3, pos); //Store the position (3-tuples) in pos 0 of the VAO
 		storeData(1, 2, textureCoords);
+		storeData(2, 3, normals);
 		unbindVAO();
 		//There are repeats in the old pos[] so indices now contains the correct number of indices
 		return new RawModel(vaoID,indices.length);

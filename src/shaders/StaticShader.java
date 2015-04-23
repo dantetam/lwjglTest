@@ -3,6 +3,7 @@ package shaders;
 import org.lwjgl.util.vector.Matrix4f;
 
 import entities.Camera;
+import entities.Light;
 import toolbox.Maths;
 
 public class StaticShader extends ShaderProgram {
@@ -11,6 +12,7 @@ public class StaticShader extends ShaderProgram {
 	private static final String FRAGMENT_FILE = "src/shaders/fragmentShader.txt";
 	
 	private int locationTransformMatrix, locationProjectionMatrix, locationViewMatrix;
+	private int locationLightPosition, locationLightColor;
 	
 	public StaticShader() 
 	{
@@ -21,6 +23,7 @@ public class StaticShader extends ShaderProgram {
 	{
 		super.bindAttribute(0, "position");
 		super.bindAttribute(1, "textureCoords");
+		super.bindAttribute(2, "normal");
 	}
 
 	protected void getAllUniformLocations() 
@@ -29,10 +32,17 @@ public class StaticShader extends ShaderProgram {
 		locationTransformMatrix = super.getUniformLocation("transformMatrix");
 		locationProjectionMatrix = super.getUniformLocation("projectionMatrix");
 		locationViewMatrix = super.getUniformLocation("viewMatrix");
+		locationLightPosition = super.getUniformLocation("lightPosition");
+		locationLightColor = super.getUniformLocation("lightColor");
 	}
 
 	public void loadTransformMatrix(Matrix4f matrix) {super.loadMatrix(locationTransformMatrix, matrix);}
 	public void loadProjectionMatrix(Matrix4f matrix) {super.loadMatrix(locationProjectionMatrix, matrix);}
+	public void loadLight(Light light) 
+	{
+		super.loadVector(locationLightPosition, light.position);
+		super.loadVector(locationLightColor, light.color);
+	}
 	
 	//Create a new view matrix based on the properties of the camera
 	public void loadViewMatrix(Camera camera) 
