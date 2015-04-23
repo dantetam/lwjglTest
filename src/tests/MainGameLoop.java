@@ -28,7 +28,7 @@ public class MainGameLoop {
 		StaticShader shader = new StaticShader();
 		Renderer renderer = new Renderer(shader);
 		
-		//counter clockwise vertices
+		/*//counter clockwise vertices
 		float[] vertices = {
 				//Left bottom and top right, resp.
 			-0.5f, 0.5f, 0f,	
@@ -41,12 +41,87 @@ public class MainGameLoop {
 		int[] indices = {0,1,3,3,1,2};
 		
 		//respective u,v vertex of texture to map to
-		float[] textureCoords = {0,0,0,1,1,1,1,0};
+		float[] textureCoords = {0,0,0,1,1,1,1,0};*/
 		
-		RawModel model = loader.loadToVAO(vertices, textureCoords, indices);
-		ModelTexture texture = new ModelTexture(loader.loadTexture("blueplasma"));
+		/*float[] vertices = {			
+				-0.5f,0.5f,-0.5f,	
+				-0.5f,-0.5f,-0.5f,	
+				0.5f,-0.5f,-0.5f,	
+				0.5f,0.5f,-0.5f,		
+				
+				-0.5f,0.5f,0.5f,	
+				-0.5f,-0.5f,0.5f,	
+				0.5f,-0.5f,0.5f,	
+				0.5f,0.5f,0.5f,
+				
+				0.5f,0.5f,-0.5f,	
+				0.5f,-0.5f,-0.5f,	
+				0.5f,-0.5f,0.5f,	
+				0.5f,0.5f,0.5f,
+				
+				-0.5f,0.5f,-0.5f,	
+				-0.5f,-0.5f,-0.5f,	
+				-0.5f,-0.5f,0.5f,	
+				-0.5f,0.5f,0.5f,
+				
+				-0.5f,0.5f,0.5f,
+				-0.5f,0.5f,-0.5f,
+				0.5f,0.5f,-0.5f,
+				0.5f,0.5f,0.5f,
+				
+				-0.5f,-0.5f,0.5f,
+				-0.5f,-0.5f,-0.5f,
+				0.5f,-0.5f,-0.5f,
+				0.5f,-0.5f,0.5f
+		};
+		
+		float[] textureCoords = {
+				0,0,
+				0,1,
+				1,1,
+				1,0,			
+				0,0,
+				0,1,
+				1,1,
+				1,0,			
+				0,0,
+				0,1,
+				1,1,
+				1,0,
+				0,0,
+				0,1,
+				1,1,
+				1,0,
+				0,0,
+				0,1,
+				1,1,
+				1,0,
+				0,0,
+				0,1,
+				1,1,
+				1,0
+		};
+		
+		int[] indices = {
+				0,1,3,	
+				3,1,2,	
+				4,5,7,
+				7,5,6,
+				8,9,11,
+				11,9,10,
+				12,13,15,
+				15,13,14,	
+				16,17,19,
+				19,17,18,
+				20,21,23,
+				23,21,22
+		};*/
+		
+		//RawModel model = loader.loadToVAO(vertices, textureCoords, indices);
+		RawModel model = OBJLoader.loadObjModel("stall", loader);
+		ModelTexture texture = new ModelTexture(loader.loadTexture("stallTexture"));
 		TexturedModel texturedModel = new TexturedModel(model, texture);
-		Entity entity = new Entity(texturedModel,new Vector3f(0,0,-1),0,0,0,1);
+		Entity entity = new Entity(texturedModel,new Vector3f(0,0,-20),0,0,0,1);
 		
 		Camera camera = new Camera();
 		
@@ -54,7 +129,10 @@ public class MainGameLoop {
 		while (!Display.isCloseRequested())
 		{
 			renderer.prepare();
+			
+			entity.rotate(0,0.3F,0);
 			camera.move();
+			
 			shader.start(); //Enable shader
 			shader.loadViewMatrix(camera);
 			renderer.render(entity,shader);
