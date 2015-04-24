@@ -26,8 +26,6 @@ public class MainGameLoop {
 	{
 		DisplayManager.createDisplay();
 		Loader loader = new Loader();
-		StaticShader shader = new StaticShader();
-		Renderer renderer = new Renderer(shader);
 		
 		/*//counter clockwise vertices
 		float[] vertices = {
@@ -119,10 +117,10 @@ public class MainGameLoop {
 		};*/
 		
 		//RawModel model = loader.loadToVAO(vertices, textureCoords, indices);
-		RawModel model = OBJLoader.loadObjModel("dragon", loader);
-		ModelTexture texture = new ModelTexture(loader.loadTexture("bluePlasma"));
-		texture.shineDamper = 50;
-		texture.reflectiveness = 0;
+		RawModel model = OBJLoader.loadObjModel("stall", loader);
+		ModelTexture texture = new ModelTexture(loader.loadTexture("stallTexture"));
+		texture.shineDamper = 10;
+		texture.reflectiveness = 1;
 		
 		TexturedModel texturedModel = new TexturedModel(model, texture);
 		Entity entity = new Entity(texturedModel,new Vector3f(0,0,-20),0,0,0,1);
@@ -131,25 +129,21 @@ public class MainGameLoop {
 		Camera camera = new Camera();
 		
 		//Keep updating the display until the user exits
+		MasterRenderer renderer = new MasterRenderer();
 		while (!Display.isCloseRequested())
 		{
-			renderer.prepare();
-			
 			entity.rotate(0,0.3F,0);
 			camera.move();
 			
-			shader.start(); //Enable shader
-			shader.loadLight(light);
+			renderer.processEntity(entity);
+			renderer.render(light, camera);
 			
-			shader.loadViewMatrix(camera);
-			renderer.render(entity,shader);
-			shader.stop(); //Disable shader when the draw is done
 			DisplayManager.updateDisplay();
 			frameCount++;
 		}
-		
-		//Clean up data
-		shader.cleanUp();
+
+		//Do some clean up of all data
+		renderer.cleanUp();
 		loader.cleanData();
 		DisplayManager.closeDisplay();
 	}

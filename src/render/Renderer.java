@@ -1,5 +1,8 @@
 package render;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import models.RawModel;
 import models.TexturedModel;
 
@@ -21,9 +24,14 @@ public class Renderer {
 	private static final float FOV = 70, NEAR_PLANE = 0.1f, FAR_PLANE = 1000f;
 	
 	private Matrix4f projectionMatrix;
+	private StaticShader shader;
 	
 	public Renderer(StaticShader shader)
 	{
+		this.shader = shader;
+		//Back culling; do not render faces that are hidden from camera
+		GL11.glEnable(GL11.GL_CULL_FACE); 
+		GL11.glCullFace(GL11.GL_BACK);
 		//Create a new matrix, for the first time
 		createProjectionMatrix();
 		//Access the shader to load the projectionMatrix
@@ -39,9 +47,64 @@ public class Renderer {
 		GL11.glClearColor(1,0,0,0);
 	}
 	
+	public void render(HashMap<TexturedModel, ArrayList<Entity>> entities)
+	{
+		for (TexturedModel model: entities.keySet())
+		{
+			prepareTexturedModel(model);
+			ArrayList<Entity> all = entities.get(model);
+			for (Entity entity: all)
+			{
+				prepareInstance(entity);
+				GL11.glDrawElements(GL11.GL_TRIANGLES, model.getRawModel().vertexCount, GL11.GL_UNSIGNED_INT, 0);
+			}
+			unbindTexturedModel();
+		}
+	}
+	
+	private void prepareTexturedModel(TexturedModel texturedModel)
+	{
+		RawModel model = texturedModel.getRawModel();
+		
+		//Whenever a VAO is edited, it must be bound
+		GL30.glBindVertexArray(model.vaoID);
+		GL20.glEnableVertexAttribArray(0);
+		GL20.glEnableVertexAttribArray(1);
+		GL20.glEnableVertexAttribArray(2);
+		
+		ModelTexture texture = texturedModel.getTexture();
+		shader.loadShineVariables(texture.shineDamper, texture.reflectiveness);
+		
+		GL13.glActiveTexture(GL13.GL_TEXTURE0);
+		GL11.glBindTexture(GL11.GL_TEXTURE_2D, texturedModel.getTexture().textureID);
+	}
+	
+	private void unbindTexturedModel()
+	{
+		//Disable after finished rendering
+		GL20.glDisableVertexAttribArray(0);
+		GL20.glDisableVertexAttribArray(1);
+		GL20.glDisableVertexAttribArray(2);
+		
+		GL30.glBindVertexArray(0); //Unbind the current bound VAO
+	}
+	
+	private void prepareInstance(Entity entity)
+	{
+		//Access transformMatrix
+		Matrix4f transformMatrix = Maths.createTransformMatrix(
+				entity.position, 
+				entity.rotX, 
+				entity.rotY, 
+				entity.rotZ, 
+				entity.scale
+				);
+		shader.loadTransformMatrix(transformMatrix);
+	}
+	
 	//The textured model encapsulates a RawModel
 	//Access a VAO by using the data contained within a RawModel object
-	public void render(Entity entity, StaticShader shader)
+	/*public void render(Entity entity, StaticShader shader)
 	{
 		TexturedModel texturedModel = entity.getModel();
 		RawModel model = texturedModel.getRawModel();
@@ -81,7 +144,7 @@ public class Renderer {
 		GL20.glDisableVertexAttribArray(2);
 		
 		GL30.glBindVertexArray(0); //Unbind the current bound VAO
-	}
+	}*/
 	
 	private void createProjectionMatrix()
 	{
