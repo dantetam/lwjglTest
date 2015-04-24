@@ -120,6 +120,9 @@ public class MainGameLoop {
 		//RawModel model = loader.loadToVAO(vertices, textureCoords, indices);
 		RawModel model = OBJLoader.loadObjModel("stall", loader);
 		ModelTexture texture = new ModelTexture(loader.loadTexture("stallTexture"));
+		
+		//TODO: texture.transparent = true;
+		//TODO: texture.fastLighting = true;
 		texture.shineDamper = 10;
 		texture.reflectiveness = 1;
 		

@@ -6,6 +6,8 @@ public class ModelTexture {
 	
 	public float shineDamper = 1, reflectiveness = 0;
 	
+	public boolean transparent = false, fastLighting = false;
+	
 	public ModelTexture(int id)
 	{
 		textureID = id;

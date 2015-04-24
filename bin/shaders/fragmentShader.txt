@@ -30,7 +30,13 @@ void main(void)
 	specular = max(specular, 0.0);
 	float dampedFactor = pow(specular, shineDamper);
 	vec3 finalSpecular = dampedFactor * reflectness * lightColor;
-
+	
+	vec4 textureColor = texture(textureSampler, passTextureCoords);
+	if (textureColor.a < 0.5) 
+	{
+		discard;
+	}
+	
 	//outColor = vec4(color,1.0);
 	//Linear interpolation of textures, by sampling the 2D texture by input coordinates
 	outColor = vec4(diffuse,1.0) * texture(textureSampler, passTextureCoords) + vec4(finalSpecular, 1.0);

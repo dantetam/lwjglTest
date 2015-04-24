@@ -59,6 +59,12 @@ public class EntityRenderer {
 		GL20.glEnableVertexAttribArray(2);
 		
 		ModelTexture texture = texturedModel.getTexture();
+		if (texture.transparent)
+		{
+			MasterRenderer.disableCulling();
+		}
+		shader.loadFastLighting(texture.fastLighting);
+		
 		shader.loadShineVariables(texture.shineDamper, texture.reflectiveness);
 		
 		GL13.glActiveTexture(GL13.GL_TEXTURE0);
@@ -67,6 +73,8 @@ public class EntityRenderer {
 	
 	private void unbindTexturedModel()
 	{
+		//Enable culling by default and stop culling manually if desired
+		MasterRenderer.enableCulling();
 		//Disable after finished rendering
 		GL20.glDisableVertexAttribArray(0);
 		GL20.glDisableVertexAttribArray(1);
