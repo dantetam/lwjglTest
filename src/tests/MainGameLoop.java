@@ -11,6 +11,7 @@ import entities.Entity;
 import entities.Light;
 import render.*;
 import shaders.StaticShader;
+import terrain.Terrain;
 import textures.ModelTexture;
 
 public class MainGameLoop {
@@ -125,6 +126,9 @@ public class MainGameLoop {
 		TexturedModel texturedModel = new TexturedModel(model, texture);
 		Entity entity = new Entity(texturedModel,new Vector3f(0,0,-20),0,0,0,1);
 		
+		Terrain terrain1 = new Terrain(-1,0,loader,new ModelTexture(loader.loadTexture("bluePlasma")));
+		Terrain terrain2 = new Terrain(0,-1,loader,new ModelTexture(loader.loadTexture("bluePlasma")));
+		
 		Light light = new Light(new Vector3f(0,0,-5), new Vector3f(1,1,1));
 		Camera camera = new Camera();
 		
@@ -134,8 +138,12 @@ public class MainGameLoop {
 		{
 			entity.rotate(0,0.3F,0);
 			camera.move();
+			//camera.yaw += 0.1;
 			
+			renderer.processTerrain(terrain1);
+			renderer.processTerrain(terrain2);
 			renderer.processEntity(entity);
+			
 			renderer.render(light, camera);
 			
 			DisplayManager.updateDisplay();
