@@ -37,6 +37,16 @@ public class Loader {
 		return new RawModel(vaoID,indices.length);
 	}
 	
+	//Generate new data with no normals
+	public RawModel loadToVAO(float[] pos, float[] textureCoords, int[] indices)
+	{
+		float[] normals = new float[indices.length/3];
+		/*for (int i = 0; i < normals.length; i++)
+			if (i % 3 == 1)
+				normals[i] = 1;*/
+		return loadToVAO(pos, textureCoords, normals, indices);
+	}
+	
 	public int loadTexture(String fileName)
 	{
 		Texture texture = null;
