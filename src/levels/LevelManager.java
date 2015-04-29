@@ -20,7 +20,7 @@ public class LevelManager {
 	
 	public LevelManager() {
 		entities = new ArrayList<Entity>();
-		for (int i = 0; i < 1000; i++)
+		for (int i = 0; i < 50; i++)
 		{
 			Vector3f pos = new Vector3f((int)(Math.random()*250 - 125), (int)(Math.random()*250), (int)(Math.random()*250 - 125));
 			//Vector3f rot = new Vector3f((int)(Math.random()*180), (int)(Math.random()*180), (int)(Math.random()*180));
@@ -51,7 +51,7 @@ public class LevelManager {
 	
 	public Entity newBox(Vector3f position, Vector3f rotation, Vector3f size, String textureName)
 	{
-		float x = size.x, y = size.y, z = size.z;
+		float x = size.x/2, y = size.y/2, z = size.z/2;
 		float[] vertices = {			
 				-x,y,-z,	
 				-x,-y,-z,	
