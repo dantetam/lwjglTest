@@ -42,13 +42,15 @@ public class LevelManager {
 				"stall",
 				"stallTexture"
 				));*/
+		entities = newObjectsFromXML("someisland.txt");
 	}
 	
-	public Entity newObjectFromXML(String fileName)
+	public ArrayList<Entity> newObjectsFromXML(String fileName)
 	{
+		ArrayList<Entity> entities = new ArrayList<Entity>();
 		FileReader fr = null;
 		try {
-			fr = new FileReader(new File("res/"+fileName+".obj"));
+			fr = new FileReader(new File("res/"+fileName));
 		} catch (FileNotFoundException e) {e.printStackTrace();}
 		BufferedReader reader = new BufferedReader(fr);
 		String line;
@@ -58,9 +60,33 @@ public class LevelManager {
 			{
 				String[] currentLine = line.split(",");
 				
+				//First data line only gives relative position of model in world
+				if (currentLine.length < 10) continue; 
+				
+				float[] data = new float[currentLine.length];
+				for (int i = 0; i < currentLine.length; i++)
+					data[i] = Float.parseFloat(currentLine[i]);
+				
+				Vector3f pos = new Vector3f(data[0], data[1], data[2]);
+				Vector3f rot = new Vector3f(
+						(float)Math.toDegrees(data[3]), 
+						(float)Math.toDegrees(data[4]), 
+						(float)Math.toDegrees(data[5])
+						);
+				Vector3f size = new Vector3f(data[6], data[7], data[8]);
+				Entity en = newBox(pos, rot, size, "bluePlasma");
+				entities.add(en);
+				
+				String output = "";
+				for (int i = 0; i < data.length; i++)
+				{
+					output += data[i] + ",";
+				}
+				System.out.println(output);
 			}
 			reader.close();
-		} catch(Exception e) {e.printStackTrace();}
+		} catch (Exception e) {e.printStackTrace();}
+		return entities;
 	}
 
 	public Entity newObjectFromModel(Vector3f position, Vector3f rotation, Vector3f size, float scale, String objFile, String textureName)

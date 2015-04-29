@@ -113,7 +113,7 @@ public class MasterRenderer {
 		terrainShader.cleanUp();
 	}
 	
-	private static final float FOV = 70, NEAR_PLANE = 0.1f, FAR_PLANE = 1000f;
+	private static final float FOV = 70, NEAR_PLANE = 0.1f, FAR_PLANE = 3000f;
 	private void createProjectionMatrix()
 	{
 		float ar = (float)Display.getWidth()/(float)Display.getHeight();
