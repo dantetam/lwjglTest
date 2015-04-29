@@ -8,22 +8,43 @@ import models.TexturedModel;
 import org.lwjgl.util.vector.Vector3f;
 
 import render.Loader;
+import render.OBJLoader;
 import textures.ModelTexture;
 import entities.Entity;
 
 public class LevelManager {
 
 	public ArrayList<Entity> entities;
+
+	private Loader loader = new Loader();
 	
 	public LevelManager() {
 		entities = new ArrayList<Entity>();
 		for (int i = 0; i < 100; i++)
 		{
-			Vector3f pos = new Vector3f((int)(Math.random()*150), (int)(Math.random()*150), (int)(Math.random()*150));
+			Vector3f pos = new Vector3f((int)(Math.random()*250 - 125), (int)(Math.random()*250), (int)(Math.random()*250 - 125));
 			Vector3f rot = new Vector3f((int)(Math.random()*180), (int)(Math.random()*180), (int)(Math.random()*180));
-			Vector3f size = new Vector3f((int)(Math.random()*20 + 20), (int)(Math.random()*20 + 20), (int)(Math.random()*20 + 20));
-			entities.add(newBox(pos, rot, new Vector3f(5,10,15), "bluePlasma"));
+			Vector3f size = new Vector3f((int)(Math.random()*10 + 10), (int)(Math.random()*10 + 10), (int)(Math.random()*10 + 10));
+			entities.add(newBox(pos, rot, size, "bluePlasma"));
 		}
+		entities.add(newObjectFromModel(
+				new Vector3f(0,0,-25),
+				new Vector3f(0,0,0),
+				new Vector3f(5,5,5),
+				5,
+				"stall",
+				"stallTexture"
+				));
+	}
+
+	public Entity newObjectFromModel(Vector3f position, Vector3f rotation, Vector3f size, float scale, String objFile, String textureName)
+	{
+		RawModel model = OBJLoader.loadObjModel(objFile, loader);
+		ModelTexture texture = new ModelTexture(loader.loadTexture(textureName));
+		TexturedModel texturedModel = new TexturedModel(model, texture);
+		Entity entity = new Entity(texturedModel,position,rotation.x,rotation.y,rotation.z,1);
+		entity.scale = scale;
+		return entity;
 	}
 	
 	public Entity newBox(Vector3f position, Vector3f rotation, Vector3f size, String textureName)
@@ -102,10 +123,8 @@ public class LevelManager {
 				20,21,23,
 				23,21,22
 		};
-		
-		Loader loader = new Loader();
+	
 		RawModel model = loader.loadToVAO(vertices, textureCoords, indices);
-		//RawModel model = OBJLoader.loadObjModel("stall", loader);
 		ModelTexture texture = new ModelTexture(loader.loadTexture(textureName));
 		
 		//TODO: texture.transparent = true;

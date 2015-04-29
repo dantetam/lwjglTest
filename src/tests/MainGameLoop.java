@@ -47,7 +47,7 @@ public class MainGameLoop {
 		//respective u,v vertex of texture to map to
 		float[] textureCoords = {0,0,0,1,1,1,1,0};*/
 		
-		Terrain terrain1 = new Terrain(-1,0,loader,new ModelTexture(loader.loadTexture("bluePlasma")));
+		Terrain terrain1 = new Terrain(-1,-1,loader,new ModelTexture(loader.loadTexture("bluePlasma")));
 		Terrain terrain2 = new Terrain(0,-1,loader,new ModelTexture(loader.loadTexture("bluePlasma")));
 		
 		Light light = new Light(new Vector3f(0,0,-5), new Vector3f(1,1,1));
@@ -64,6 +64,10 @@ public class MainGameLoop {
 			renderer.processTerrain(terrain1);
 			renderer.processTerrain(terrain2);
 			renderer.processEntity(levelManager.entities);
+			for (Entity en: levelManager.entities)
+			{
+				en.rotate(0,1F,0);
+			}
 			
 			renderer.render(light, camera);
 			
