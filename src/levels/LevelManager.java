@@ -1,10 +1,15 @@
 package levels;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.ArrayList;
 
 import models.RawModel;
 import models.TexturedModel;
 
+import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
 import render.Loader;
@@ -20,7 +25,7 @@ public class LevelManager {
 	
 	public LevelManager() {
 		entities = new ArrayList<Entity>();
-		for (int i = 0; i < 50; i++)
+		/*for (int i = 0; i < 50; i++)
 		{
 			Vector3f pos = new Vector3f((int)(Math.random()*250 - 125), (int)(Math.random()*250), (int)(Math.random()*250 - 125));
 			//Vector3f rot = new Vector3f((int)(Math.random()*180), (int)(Math.random()*180), (int)(Math.random()*180));
@@ -28,7 +33,7 @@ public class LevelManager {
 			//Vector3f size = new Vector3f((int)(Math.random()*10 + 10), (int)(Math.random()*10 + 10), (int)(Math.random()*10 + 10));
 			Vector3f size = new Vector3f(5,5,5);
 			entities.add(newBox(pos, rot, size, "bluePlasma"));
-		}
+		}*/
 		/*entities.add(newObjectFromModel(
 				new Vector3f(0,0,-25),
 				new Vector3f(0,0,0),
@@ -37,6 +42,25 @@ public class LevelManager {
 				"stall",
 				"stallTexture"
 				));*/
+	}
+	
+	public Entity newObjectFromXML(String fileName)
+	{
+		FileReader fr = null;
+		try {
+			fr = new FileReader(new File("res/"+fileName+".obj"));
+		} catch (FileNotFoundException e) {e.printStackTrace();}
+		BufferedReader reader = new BufferedReader(fr);
+		String line;
+		try
+		{
+			while ((line = reader.readLine()) != null)
+			{
+				String[] currentLine = line.split(",");
+				
+			}
+			reader.close();
+		} catch(Exception e) {e.printStackTrace();}
 	}
 
 	public Entity newObjectFromModel(Vector3f position, Vector3f rotation, Vector3f size, float scale, String objFile, String textureName)
