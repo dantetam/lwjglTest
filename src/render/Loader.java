@@ -39,7 +39,7 @@ public class Loader {
 	}
 	
 	//Generate new data with no normals
-	public RawModel loadToVAO(float[] pos, float[] textureCoords, int[] indices)
+	/*public RawModel loadToVAO(float[] pos, float[] textureCoords, int[] indices)
 	{
 		float[] normals = new float[indices.length];
 		for (int i = 0; i < indices.length; i += 3)
@@ -48,12 +48,12 @@ public class Loader {
 			Vector3f p0 = new Vector3f(pos[indices[i]*3], pos[indices[i]*3 + 1], pos[indices[i]*3 + 2]),
 					p1 = new Vector3f(pos[indices[i+1]*3], pos[indices[i+1]*3 + 1], pos[indices[i+1]*3 + 2]),
 					p2 = new Vector3f(pos[indices[i+2]*3], pos[indices[i+2]*3 + 1], pos[indices[i+2]*3 + 2]);
-			/*Vector3f cross1 = null, cross2 = null;
+			Vector3f cross1 = null, cross2 = null;
 			cross1 = Vector3f.sub(p1, p0, cross1); //Why is there no "p1.sub(p0)" notation?
 			cross2 = Vector3f.sub(p2, p0, cross2);
 			Vector3f normal = null;
 			normal = Vector3f.cross(cross1, cross2, normal);
-			normals[i] = -normal.x; normals[i+1] = -normal.y; normals[i+2] = -normal.z;*/
+			normals[i] = -normal.x; normals[i+1] = -normal.y; normals[i+2] = -normal.z;
 			Vector3f u = null, v = null;
 			u = Vector3f.sub(p1, p0, u); 
 			v = Vector3f.sub(p2, p0, v);
@@ -65,7 +65,7 @@ public class Loader {
 			normals[i] = normal.x; normals[i+1] = normal.y; normals[i+2] = normal.z;
 		}
 		return loadToVAO(pos, textureCoords, normals, indices);
-	}
+	}*/
 	
 	public int loadTexture(String fileName)
 	{

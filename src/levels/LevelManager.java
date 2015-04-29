@@ -20,21 +20,23 @@ public class LevelManager {
 	
 	public LevelManager() {
 		entities = new ArrayList<Entity>();
-		for (int i = 0; i < 100; i++)
+		for (int i = 0; i < 1000; i++)
 		{
 			Vector3f pos = new Vector3f((int)(Math.random()*250 - 125), (int)(Math.random()*250), (int)(Math.random()*250 - 125));
-			Vector3f rot = new Vector3f((int)(Math.random()*180), (int)(Math.random()*180), (int)(Math.random()*180));
-			Vector3f size = new Vector3f((int)(Math.random()*10 + 10), (int)(Math.random()*10 + 10), (int)(Math.random()*10 + 10));
+			//Vector3f rot = new Vector3f((int)(Math.random()*180), (int)(Math.random()*180), (int)(Math.random()*180));
+			Vector3f rot = new Vector3f(0,0,0);
+			//Vector3f size = new Vector3f((int)(Math.random()*10 + 10), (int)(Math.random()*10 + 10), (int)(Math.random()*10 + 10));
+			Vector3f size = new Vector3f(5,5,5);
 			entities.add(newBox(pos, rot, size, "bluePlasma"));
 		}
-		entities.add(newObjectFromModel(
+		/*entities.add(newObjectFromModel(
 				new Vector3f(0,0,-25),
 				new Vector3f(0,0,0),
 				new Vector3f(5,5,5),
 				5,
 				"stall",
 				"stallTexture"
-				));
+				));*/
 	}
 
 	public Entity newObjectFromModel(Vector3f position, Vector3f rotation, Vector3f size, float scale, String objFile, String textureName)
@@ -49,7 +51,7 @@ public class LevelManager {
 	
 	public Entity newBox(Vector3f position, Vector3f rotation, Vector3f size, String textureName)
 	{
-		float x = size.x/2, y = size.y/2, z = size.z/2;
+		float x = size.x, y = size.y, z = size.z;
 		float[] vertices = {			
 				-x,y,-z,	
 				-x,-y,-z,	
@@ -82,6 +84,96 @@ public class LevelManager {
 				x,-y,z
 		};
 		
+		/*float[] normals = {
+				0,0,-1,
+				0,0,-1,
+				0,0,-1,
+				0,0,-1,
+				
+				0,0,1,
+				0,0,1,
+				0,0,1,
+				0,0,1,
+				
+				1,0,0,
+				1,0,0,
+				1,0,0,
+				1,0,0,
+				
+				-1,0,0,
+				-1,0,0,
+				-1,0,0,
+				-1,0,0,
+				
+				0,1,0,
+				0,1,0,
+				0,1,0,
+				0,1,0,
+				
+				0,-1,0,
+				0,-1,0,
+				0,-1,0,
+				0,-1,0,
+				
+				//1,0,0,
+				//1,0,0,
+				//-1,0,0,
+				//-1,0,0,
+				
+				//0,1,0,
+				//0,1,0,
+				//0,-1,0,
+				//0,-1,0
+			};*/
+		
+		float[] normals = {
+				0,0,1,
+				0,0,1,
+				0,0,1,
+				0,0,1,
+				
+				0,0,-1,
+				0,0,-1,
+				0,0,-1,
+				0,0,-1,
+				
+				-1,0,0,
+				-1,0,0,
+				-1,0,0,
+				-1,0,0,
+				
+				1,0,0,
+				1,0,0,
+				1,0,0,
+				1,0,0,
+				
+				0,-1,0,
+				0,-1,0,
+				0,-1,0,
+				0,-1,0,
+				
+				0,1,0,
+				0,1,0,
+				0,1,0,
+				0,1,0,
+			};
+		
+		int[] indices = {
+				0,1,3,	
+				3,1,2,	
+				4,5,7,
+				7,5,6,
+				8,9,11,
+				11,9,10,
+				12,13,15,
+				15,13,14,	
+				16,17,19,
+				19,17,18,
+				20,21,23,
+				23,21,22
+		};
+		
+		
 		float[] textureCoords = {
 				0,0,
 				0,1,
@@ -108,23 +200,8 @@ public class LevelManager {
 				1,1,
 				1,0
 		};
-		
-		int[] indices = {
-				0,1,3,	
-				3,1,2,	
-				4,5,7,
-				7,5,6,
-				8,9,11,
-				11,9,10,
-				12,13,15,
-				15,13,14,	
-				16,17,19,
-				19,17,18,
-				20,21,23,
-				23,21,22
-		};
 	
-		RawModel model = loader.loadToVAO(vertices, textureCoords, indices);
+		RawModel model = loader.loadToVAO(vertices, textureCoords, normals, indices);
 		ModelTexture texture = new ModelTexture(loader.loadTexture(textureName));
 		
 		//TODO: texture.transparent = true;

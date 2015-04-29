@@ -50,7 +50,7 @@ public class MainGameLoop {
 		Terrain terrain1 = new Terrain(-1,-1,loader,new ModelTexture(loader.loadTexture("bluePlasma")));
 		Terrain terrain2 = new Terrain(0,-1,loader,new ModelTexture(loader.loadTexture("bluePlasma")));
 		
-		Light light = new Light(new Vector3f(0,0,-5), new Vector3f(1,1,1));
+		Light light = new Light(new Vector3f(0,50,20), new Vector3f(1,1,1));
 		Camera camera = new Camera();
 		
 		//Keep updating the display until the user exits
