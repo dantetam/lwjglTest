@@ -62,8 +62,8 @@ public class MainGameLoop {
 		//respective u,v vertex of texture to map to
 		float[] textureCoords = {0,0,0,1,1,1,1,0};*/
 		
-		Terrain terrain1 = new Terrain(-1,-1,loader,texturePack,blendMap);
-		Terrain terrain2 = new Terrain(-1,-1,loader,texturePack,blendMap);
+		Terrain terrain1 = new Terrain(-1,-1,loader,texturePack,blendMap,"heightmap");
+		Terrain terrain2 = new Terrain(-1,-1,loader,texturePack,blendMap,"heightmap");
 		
 		Light light = new Light(new Vector3f(0,50,0), new Vector3f(1,1,1));
 		Camera camera = new Camera();
