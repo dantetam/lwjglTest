@@ -43,6 +43,7 @@ public abstract class ShaderProgram {
 	
 	//Same values to locations in the GLSL uniform variables of various types
 	protected void loadFloat(int location, float value) {GL20.glUniform1f(location, value);}
+	protected void loadInt(int location, int value) {GL20.glUniform1i(location, value);}
 	protected void loadVector(int location, Vector3f vector) {GL20.glUniform3f(location, vector.x, vector.y, vector.z);}
 
 	protected void loadBoolean(int location, boolean value)

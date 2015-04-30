@@ -16,15 +16,16 @@ import render.Loader;
 import render.OBJLoader;
 import textures.ModelTexture;
 import entities.Entity;
+import entities.Group;
 
 public class LevelManager {
 
-	public ArrayList<Entity> entities;
+	public ArrayList<Group> groups;
 
 	private Loader loader = new Loader();
 	
 	public LevelManager() {
-		entities = new ArrayList<Entity>();
+		groups = new ArrayList<Group>();
 		/*for (int i = 0; i < 50; i++)
 		{
 			Vector3f pos = new Vector3f((int)(Math.random()*250 - 125), (int)(Math.random()*250), (int)(Math.random()*250 - 125));
@@ -42,10 +43,13 @@ public class LevelManager {
 				"stall",
 				"stallTexture"
 				));*/
-		entities = newObjectsFromXML("someisland.txt");
+		Group group1 = loadFromXML("someisland.txt");
+		group1.move(0, 40, 0);
+		groups.add(group1);
+		
 	}
 	
-	public ArrayList<Entity> newObjectsFromXML(String fileName)
+	public Group loadFromXML(String fileName)
 	{
 		ArrayList<Entity> entities = new ArrayList<Entity>();
 		FileReader fr = null;
@@ -86,7 +90,7 @@ public class LevelManager {
 			}
 			reader.close();
 		} catch (Exception e) {e.printStackTrace();}
-		return entities;
+		return new Group(entities);
 	}
 
 	public Entity newObjectFromModel(Vector3f position, Vector3f rotation, Vector3f size, float scale, String objFile, String textureName)

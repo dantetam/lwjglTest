@@ -14,6 +14,8 @@ import render.*;
 import shaders.StaticShader;
 import terrain.Terrain;
 import textures.ModelTexture;
+import textures.TerrainTexture;
+import textures.TerrainTexturePack;
 
 public class MainGameLoop {
 	
@@ -32,6 +34,19 @@ public class MainGameLoop {
 		
 		LevelManager levelManager = new LevelManager();
 		
+		TerrainTexture backTexture = new TerrainTexture(loader.loadTexture("grassy"));
+		TerrainTexture rTexture = new TerrainTexture(loader.loadTexture("dirt"));
+		TerrainTexture gTexture = new TerrainTexture(loader.loadTexture("pinkFlowers"));
+		TerrainTexture bTexture = new TerrainTexture(loader.loadTexture("path"));
+		
+		TerrainTexturePack texturePack = new TerrainTexturePack(
+				backTexture,
+				rTexture,
+				gTexture,
+				bTexture
+				);
+		TerrainTexture blendMap = new TerrainTexture(loader.loadTexture("blendMap"));
+		
 		/*//counter clockwise vertices
 		float[] vertices = {
 				//Left bottom and top right, resp.
@@ -47,8 +62,8 @@ public class MainGameLoop {
 		//respective u,v vertex of texture to map to
 		float[] textureCoords = {0,0,0,1,1,1,1,0};*/
 		
-		Terrain terrain1 = new Terrain(-1,-1,loader,new ModelTexture(loader.loadTexture("bluePlasma")));
-		Terrain terrain2 = new Terrain(0,-1,loader,new ModelTexture(loader.loadTexture("bluePlasma")));
+		Terrain terrain1 = new Terrain(-1,-1,loader,texturePack,blendMap);
+		Terrain terrain2 = new Terrain(-1,-1,loader,texturePack,blendMap);
 		
 		Light light = new Light(new Vector3f(0,50,0), new Vector3f(1,1,1));
 		Camera camera = new Camera();
@@ -63,7 +78,9 @@ public class MainGameLoop {
 			
 			renderer.processTerrain(terrain1);
 			renderer.processTerrain(terrain2);
-			renderer.processEntity(levelManager.entities);
+			//renderer.processEntity(levelManager.entities);
+			renderer.processGroups(levelManager.groups);
+			//levelManager.groups.get(0).move(0,80+(float)(40*Math.sin((float)frameCount/250F)),0);
 			/*for (Entity en: levelManager.entities)
 			{
 				en.rotate(0,1F,0);

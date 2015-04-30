@@ -9,6 +9,7 @@ import org.lwjgl.util.vector.Matrix4f;
 
 import entities.Camera;
 import entities.Entity;
+import entities.Group;
 import entities.Light;
 import models.TexturedModel;
 import shaders.StaticShader;
@@ -94,11 +95,18 @@ public class MasterRenderer {
 		}
 	}
 	
-	public void processEntity(ArrayList<Entity> entities)
+	public void processEntities(ArrayList<Entity> entities)
 	{
 		for (Entity en: entities)
 			processEntity(en);
 	}
+	
+	public void processGroups(ArrayList<Group> groups)
+	{
+		for (Group group: groups)
+			processEntities(group.entities);
+	}
+	
 	
 	public void prepare()
 	{
