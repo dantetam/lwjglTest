@@ -9,9 +9,12 @@ in vec3 toCameraVector;
 out vec4 outColor;
 
 uniform sampler2D backgroundTexture;
-uniform sampler2D rTexture;
-uniform sampler2D gTexture;
-uniform sampler2D bTexture;
+uniform sampler2D texture1;
+uniform sampler2D texture2;
+uniform sampler2D texture3;
+uniform sampler2D texture4;
+uniform sampler2D texture5;
+uniform sampler2D texture6;
 uniform sampler2D blendMap;
 
 uniform vec3 lightColor;
@@ -21,15 +24,49 @@ uniform float reflectness;
 void main(void)
 {
 	vec4 blendMapColor = texture(blendMap, passTextureCoords);
-	
-	float backTextureAmount = 1 - (blendMapColor.r + blendMapColor.g + blendMapColor.b);
+	vec4 totalColor;
 	vec2 tiledCoords = passTextureCoords * 20.0;
-	vec4 backgroundTextureColor = texture(backgroundTexture, tiledCoords)*backTextureAmount;
-	vec4 rTextureColor = texture(rTexture, tiledCoords)*blendMapColor.r;
-	vec4 gTextureColor = texture(gTexture, tiledCoords)*blendMapColor.g;
-	vec4 bTextureColor = texture(bTexture, tiledCoords)*blendMapColor.b;
+		
+	if (blendMapColor.r == 0)
+	{
+		totalColor = texture(backgroundTexture, tiledCoords);
+	}
+	else if (blendMapColor.r <= 255/8 + 0.02)
+	{
+	    totalColor = texture(texture1, tiledCoords);
+	}
+	else if (blendMapColor.r <= 255/8*2 + 0.02)
+	{
+		totalColor = texture(texture2, tiledCoords);
+	}
+	else if (blendMapColor.r <= 255/8*3 + 0.02)
+	{
+		totalColor = texture(texture3, tiledCoords);	
+	}
+	else if (blendMapColor.r <= 255/8*4 + 0.02)
+	{
+		totalColor = texture(texture4, tiledCoords);	
+	}
+	else if (blendMapColor.r <= 255/8*5 + 0.02)
+	{
+		totalColor = texture(texture5, tiledCoords);	
+	}
+	else if (blendMapColor.r <= 255/8*6 + 0.02)
+	{
+		totalColor = texture(texture6, tiledCoords);	
+	}
+	else
+	{
+		totalColor = texture(texture1, tiledCoords);	
+	}
+	
+	//float backTextureAmount = 1 - (blendMapColor.r + blendMapColor.g + blendMapColor.b);
+	//vec4 backgroundTextureColor = texture(backgroundTexture, tiledCoords)*backTextureAmount;
+	//vec4 rTextureColor = texture(rTexture, tiledCoords)*blendMapColor.r;
+	//vec4 gTextureColor = texture(gTexture, tiledCoords)*blendMapColor.g;
+	//vec4 bTextureColor = texture(bTexture, tiledCoords)*blendMapColor.b;
 
-	vec4 totalColor = backgroundTextureColor + rTextureColor + gTextureColor + bTextureColor;
+	//vec4 totalColor = backgroundTextureColor + rTextureColor + gTextureColor + bTextureColor;
 
 	vec3 unitNormal = normalize(surfaceNormal);
 	vec3 unitLightVector = normalize(toLightVector);

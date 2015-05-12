@@ -10,13 +10,16 @@ public class WhiteTerrainShader extends ShaderProgram {
 
 	private static final String VERTEX_FILE = "src/shaders/whiteTerrainVertexShader.txt";
 	private static final String FRAGMENT_FILE = "src/shaders/whiteTerrainFragmentShader.txt";
-	
+
 	private int locationTransformMatrix, locationProjectionMatrix, locationViewMatrix;
 	private int locationLightPosition, locationLightColor;
 	private int locationShineDamper, locationReflectiveness;
-	private int locationBackTexture, locationRTexture, locationGTexture, locationBTexture;
-	private int locationBlendMap;
 	
+	private int locationBackTexture, 
+	locationTexture1, locationTexture2, locationTexture3, locationTexture4, locationTexture5, locationTexture6;
+	
+	private int locationBlendMap;
+
 	public WhiteTerrainShader() 
 	{
 		super(VERTEX_FILE, FRAGMENT_FILE);
@@ -40,19 +43,25 @@ public class WhiteTerrainShader extends ShaderProgram {
 		locationShineDamper = super.getUniformLocation("shineDamper");
 		locationReflectiveness = super.getUniformLocation("reflectiveness");
 		locationBackTexture = super.getUniformLocation("backgroundTexture");
-		locationRTexture = super.getUniformLocation("rTexture");
-		locationGTexture = super.getUniformLocation("gTexture");
-		locationBTexture = super.getUniformLocation("bTexture");
+		locationTexture1 = super.getUniformLocation("texture1");
+		locationTexture2 = super.getUniformLocation("texture2");
+		locationTexture3 = super.getUniformLocation("texture3");
+		locationTexture4 = super.getUniformLocation("texture4");
+		locationTexture5 = super.getUniformLocation("texture5");
+		locationTexture6 = super.getUniformLocation("texture6");
 		locationBlendMap = super.getUniformLocation("blendMap");
 	}
 
 	public void connectTextures()
 	{
 		super.loadInt(locationBackTexture, 0);
-		super.loadInt(locationRTexture, 1);
-		super.loadInt(locationGTexture, 2);
-		super.loadInt(locationBTexture, 3);
-		super.loadInt(locationBlendMap, 4);
+		super.loadInt(locationTexture1, 1);
+		super.loadInt(locationTexture2, 2);
+		super.loadInt(locationTexture3, 3);
+		super.loadInt(locationTexture4, 4);
+		super.loadInt(locationTexture5, 5);
+		super.loadInt(locationTexture6, 6);
+		super.loadInt(locationBlendMap, 7);
 
 	}
 	public void loadTransformMatrix(Matrix4f matrix) {super.loadMatrix(locationTransformMatrix, matrix);}
@@ -67,7 +76,7 @@ public class WhiteTerrainShader extends ShaderProgram {
 		super.loadFloat(locationShineDamper, d);
 		super.loadFloat(locationReflectiveness, r);
 	}
-	
+
 	//Create a new view matrix based on the properties of the camera
 	public void loadViewMatrix(Camera camera) 
 	{
