@@ -22,7 +22,7 @@ public class LevelManager {
 
 	public ArrayList<Group> groups;
 
-	private Loader loader = new Loader();
+	private static Loader loader = new Loader();
 	
 	public LevelManager() {
 		groups = new ArrayList<Group>();
@@ -44,12 +44,12 @@ public class LevelManager {
 				"stallTexture"
 				));*/
 		Group group1 = loadFromXML("someisland.txt");
-		group1.move(0, 40, 0);
+		group1.move(0, 35, 0);
 		groups.add(group1);
 		
 	}
 	
-	public Group loadFromXML(String fileName)
+	public static Group loadFromXML(String fileName)
 	{
 		ArrayList<Entity> entities = new ArrayList<Entity>();
 		FileReader fr = null;
@@ -93,7 +93,7 @@ public class LevelManager {
 		return new Group(entities);
 	}
 
-	public Entity newObjectFromModel(Vector3f position, Vector3f rotation, Vector3f size, float scale, String objFile, String textureName)
+	public static Entity newObjectFromModel(Vector3f position, Vector3f rotation, Vector3f size, float scale, String objFile, String textureName)
 	{
 		RawModel model = OBJLoader.loadObjModel(objFile, loader);
 		ModelTexture texture = new ModelTexture(loader.loadTexture(textureName));
@@ -103,7 +103,7 @@ public class LevelManager {
 		return entity;
 	}
 	
-	public Entity newBox(Vector3f position, Vector3f rotation, Vector3f size, String textureName)
+	public static Entity newBox(Vector3f position, Vector3f rotation, Vector3f size, String textureName)
 	{
 		float x = size.x/2, y = size.y/2, z = size.z/2;
 		float[] vertices = {			
