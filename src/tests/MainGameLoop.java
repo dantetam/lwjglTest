@@ -16,6 +16,7 @@ import terrain.Terrain;
 import textures.ModelTexture;
 import textures.TerrainTexture;
 import textures.TerrainTexturePack;
+import textures.WhiteTerrainTexturePack;
 
 public class MainGameLoop {
 	
@@ -35,15 +36,21 @@ public class MainGameLoop {
 		LevelManager levelManager = new LevelManager();
 		
 		TerrainTexture backTexture = new TerrainTexture(loader.loadTexture("grassy"));
-		TerrainTexture rTexture = new TerrainTexture(loader.loadTexture("dirt"));
-		TerrainTexture gTexture = new TerrainTexture(loader.loadTexture("pinkFlowers"));
-		TerrainTexture bTexture = new TerrainTexture(loader.loadTexture("path"));
+		TerrainTexture t1 = new TerrainTexture(loader.loadTexture("dirt"));
+		TerrainTexture t2 = new TerrainTexture(loader.loadTexture("dirt"));
+		TerrainTexture t3 = new TerrainTexture(loader.loadTexture("dirt"));
+		TerrainTexture t4 = new TerrainTexture(loader.loadTexture("dirt"));
+		TerrainTexture t5 = new TerrainTexture(loader.loadTexture("dirt"));
+		TerrainTexture t6 = new TerrainTexture(loader.loadTexture("dirt"));
 		
-		TerrainTexturePack texturePack = new TerrainTexturePack(
+		WhiteTerrainTexturePack texturePack = new WhiteTerrainTexturePack(
 				backTexture,
-				rTexture,
-				gTexture,
-				bTexture
+				t1,
+				t2,
+				t3,
+				t4,
+				t5,
+				t6
 				);
 		TerrainTexture blendMap = new TerrainTexture(loader.loadTexture("blendMap"));
 		

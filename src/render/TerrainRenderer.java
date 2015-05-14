@@ -14,16 +14,18 @@ import org.lwjgl.util.vector.Vector3f;
 
 import entities.Entity;
 import shaders.TerrainShader;
+import shaders.WhiteTerrainShader;
 import terrain.Terrain;
 import textures.ModelTexture;
 import textures.TerrainTexturePack;
+import textures.WhiteTerrainTexturePack;
 import toolbox.Maths;
 
 public class TerrainRenderer {
 
-	private TerrainShader shader;
+	private WhiteTerrainShader shader;
 	
-	public TerrainRenderer(TerrainShader shader, Matrix4f projectionMatrix)
+	public TerrainRenderer(WhiteTerrainShader shader, Matrix4f projectionMatrix)
 	{
 		this.shader = shader;
 		shader.start();
@@ -63,7 +65,7 @@ public class TerrainRenderer {
 	
 	private void bindTextures(Terrain terrain)
 	{
-		TerrainTexturePack textures = terrain.texturePack;
+		WhiteTerrainTexturePack textures = terrain.texturePack;
 		GL13.glActiveTexture(GL13.GL_TEXTURE0);
 		GL11.glBindTexture(GL11.GL_TEXTURE_2D, textures.backgroundTexture.textureID);
 		GL13.glActiveTexture(GL13.GL_TEXTURE1);

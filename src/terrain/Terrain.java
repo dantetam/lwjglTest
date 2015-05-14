@@ -13,6 +13,7 @@ import render.Loader;
 import textures.ModelTexture;
 import textures.TerrainTexture;
 import textures.TerrainTexturePack;
+import textures.WhiteTerrainTexturePack;
 
 public class Terrain {
 
@@ -21,10 +22,10 @@ public class Terrain {
 
 	public float x,z;
 	public RawModel model;
-	public TerrainTexturePack texturePack;
+	public WhiteTerrainTexturePack texturePack;
 	public TerrainTexture blendMap;
 
-	public Terrain(int gridX, int gridZ, Loader loader, TerrainTexturePack texturePack,
+	public Terrain(int gridX, int gridZ, Loader loader, WhiteTerrainTexturePack texturePack,
 			TerrainTexture blendMap, String heightMap)
 	{
 		this.texturePack = texturePack;

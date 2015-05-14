@@ -14,6 +14,7 @@ import entities.Light;
 import models.TexturedModel;
 import shaders.StaticShader;
 import shaders.TerrainShader;
+import shaders.WhiteTerrainShader;
 import terrain.Terrain;
 
 public class MasterRenderer {
@@ -23,7 +24,7 @@ public class MasterRenderer {
 	
 	//Specific objects for rendering terrain only
 	private TerrainRenderer terrainRenderer;
-	private TerrainShader terrainShader = new TerrainShader();
+	private WhiteTerrainShader terrainShader = new WhiteTerrainShader();
 	
 	private Matrix4f projectionMatrix;
 	
