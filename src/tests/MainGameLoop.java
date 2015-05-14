@@ -70,9 +70,9 @@ public class MainGameLoop {
 		float[] textureCoords = {0,0,0,1,1,1,1,0};*/
 		
 		Terrain terrain1 = new Terrain(0,0,loader,texturePack,blendMap,"heightmap");
-		Terrain terrain2 = new Terrain(-1,0,loader,texturePack,blendMap,"heightmap");
-		Terrain terrain3 = new Terrain(0,-1,loader,texturePack,blendMap,"heightmap");
-		Terrain terrain4 = new Terrain(-1,-1,loader,texturePack,blendMap,"heightmap");
+		//Terrain terrain2 = new Terrain(-1,0,loader,texturePack,blendMap,"heightmap");
+		//Terrain terrain3 = new Terrain(0,-1,loader,texturePack,blendMap,"heightmap");
+		//Terrain terrain4 = new Terrain(-1,-1,loader,texturePack,blendMap,"heightmap");
 		
 		Light light = new Light(new Vector3f(0,50,0), new Vector3f(1,1,1));
 		Camera camera = new Camera();
@@ -86,9 +86,9 @@ public class MainGameLoop {
 			//camera.yaw += 0.1;
 			
 			renderer.processTerrain(terrain1);
-			renderer.processTerrain(terrain2);
-			renderer.processTerrain(terrain3);
-			renderer.processTerrain(terrain4);
+			//renderer.processTerrain(terrain2);
+			//renderer.processTerrain(terrain3);
+			//renderer.processTerrain(terrain4);
 			//renderer.processEntity(levelManager.entities);
 			renderer.processGroups(levelManager.groups);
 			//levelManager.groups.get(0).move(0,80+(float)(40*Math.sin((float)frameCount/250F)),0);
