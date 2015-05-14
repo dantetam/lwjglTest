@@ -69,12 +69,18 @@ public class TerrainRenderer {
 		GL13.glActiveTexture(GL13.GL_TEXTURE0);
 		GL11.glBindTexture(GL11.GL_TEXTURE_2D, textures.backgroundTexture.textureID);
 		GL13.glActiveTexture(GL13.GL_TEXTURE1);
-		GL11.glBindTexture(GL11.GL_TEXTURE_2D, textures.rTexture.textureID);
+		GL11.glBindTexture(GL11.GL_TEXTURE_2D, textures.texture1.textureID);
 		GL13.glActiveTexture(GL13.GL_TEXTURE2);
-		GL11.glBindTexture(GL11.GL_TEXTURE_2D, textures.gTexture.textureID);
+		GL11.glBindTexture(GL11.GL_TEXTURE_2D, textures.texture2.textureID);
 		GL13.glActiveTexture(GL13.GL_TEXTURE3);
-		GL11.glBindTexture(GL11.GL_TEXTURE_2D, textures.bTexture.textureID);
+		GL11.glBindTexture(GL11.GL_TEXTURE_2D, textures.texture3.textureID);
 		GL13.glActiveTexture(GL13.GL_TEXTURE4);
+		GL11.glBindTexture(GL11.GL_TEXTURE_2D, textures.texture4.textureID);
+		GL13.glActiveTexture(GL13.GL_TEXTURE5);
+		GL11.glBindTexture(GL11.GL_TEXTURE_2D, textures.texture5.textureID);
+		GL13.glActiveTexture(GL13.GL_TEXTURE6);
+		GL11.glBindTexture(GL11.GL_TEXTURE_2D, textures.texture6.textureID);
+		GL13.glActiveTexture(GL13.GL_TEXTURE7);
 		GL11.glBindTexture(GL11.GL_TEXTURE_2D, terrain.blendMap.textureID);
 	}
 	

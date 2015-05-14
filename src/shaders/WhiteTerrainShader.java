@@ -62,7 +62,6 @@ public class WhiteTerrainShader extends ShaderProgram {
 		super.loadInt(locationTexture5, 5);
 		super.loadInt(locationTexture6, 6);
 		super.loadInt(locationBlendMap, 7);
-
 	}
 	public void loadTransformMatrix(Matrix4f matrix) {super.loadMatrix(locationTransformMatrix, matrix);}
 	public void loadProjectionMatrix(Matrix4f matrix) {super.loadMatrix(locationProjectionMatrix, matrix);}

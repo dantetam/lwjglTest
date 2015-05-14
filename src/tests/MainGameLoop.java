@@ -37,11 +37,11 @@ public class MainGameLoop {
 		
 		TerrainTexture backTexture = new TerrainTexture(loader.loadTexture("grassy"));
 		TerrainTexture t1 = new TerrainTexture(loader.loadTexture("dirt"));
-		TerrainTexture t2 = new TerrainTexture(loader.loadTexture("dirt"));
-		TerrainTexture t3 = new TerrainTexture(loader.loadTexture("dirt"));
-		TerrainTexture t4 = new TerrainTexture(loader.loadTexture("dirt"));
-		TerrainTexture t5 = new TerrainTexture(loader.loadTexture("dirt"));
-		TerrainTexture t6 = new TerrainTexture(loader.loadTexture("dirt"));
+		TerrainTexture t2 = new TerrainTexture(loader.loadTexture("mud"));
+		TerrainTexture t3 = new TerrainTexture(loader.loadTexture("path"));
+		TerrainTexture t4 = new TerrainTexture(loader.loadTexture("grassy2"));
+		TerrainTexture t5 = new TerrainTexture(loader.loadTexture("grassy2"));
+		TerrainTexture t6 = new TerrainTexture(loader.loadTexture("grassFlowers"));
 		
 		WhiteTerrainTexturePack texturePack = new WhiteTerrainTexturePack(
 				backTexture,
@@ -52,7 +52,7 @@ public class MainGameLoop {
 				t5,
 				t6
 				);
-		TerrainTexture blendMap = new TerrainTexture(loader.loadTexture("blendMap"));
+		TerrainTexture blendMap = new TerrainTexture(loader.loadTexture("generatedBlendMap"));
 		
 		/*//counter clockwise vertices
 		float[] vertices = {

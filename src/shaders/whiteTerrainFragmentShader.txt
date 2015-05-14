@@ -25,7 +25,7 @@ void main(void)
 {
 	vec4 blendMapColor = texture(blendMap, passTextureCoords);
 	vec4 totalColor;
-	vec2 tiledCoords = passTextureCoords * 20.0;
+	vec2 tiledCoords = passTextureCoords; // * 20.0;
 		
 	if (blendMapColor.r == 0)
 	{
