@@ -35,13 +35,14 @@ public class MainGameLoop {
 		
 		LevelManager levelManager = new LevelManager();
 		
-		TerrainTexture backTexture = new TerrainTexture(loader.loadTexture("grassy"));
-		TerrainTexture t1 = new TerrainTexture(loader.loadTexture("dirt"));
-		TerrainTexture t2 = new TerrainTexture(loader.loadTexture("mud"));
-		TerrainTexture t3 = new TerrainTexture(loader.loadTexture("path"));
-		TerrainTexture t4 = new TerrainTexture(loader.loadTexture("grassy2"));
-		TerrainTexture t5 = new TerrainTexture(loader.loadTexture("grassy2"));
-		TerrainTexture t6 = new TerrainTexture(loader.loadTexture("grassFlowers"));
+		TerrainTexture backTexture = new TerrainTexture(loader.loadTexture("seaTexture"));
+		TerrainTexture t1 = new TerrainTexture(loader.loadTexture("iceTexture"));
+		TerrainTexture t2 = new TerrainTexture(loader.loadTexture("taigaTexture"));
+		TerrainTexture t3 = new TerrainTexture(loader.loadTexture("desertTexture"));
+		TerrainTexture t4 = new TerrainTexture(loader.loadTexture("steppeTexture"));
+		TerrainTexture t5 = new TerrainTexture(loader.loadTexture("dryforestTexture"));
+		TerrainTexture t6 = new TerrainTexture(loader.loadTexture("forestTexture"));
+		TerrainTexture t7 = new TerrainTexture(loader.loadTexture("rainforestTexture"));
 		
 		WhiteTerrainTexturePack texturePack = new WhiteTerrainTexturePack(
 				backTexture,
@@ -50,7 +51,8 @@ public class MainGameLoop {
 				t3,
 				t4,
 				t5,
-				t6
+				t6,
+				t7
 				);
 		TerrainTexture blendMap = new TerrainTexture(loader.loadTexture("generatedBlendMap"));
 		

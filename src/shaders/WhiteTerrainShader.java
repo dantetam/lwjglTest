@@ -16,7 +16,7 @@ public class WhiteTerrainShader extends ShaderProgram {
 	private int locationShineDamper, locationReflectiveness;
 	
 	private int locationBackTexture, 
-	locationTexture1, locationTexture2, locationTexture3, locationTexture4, locationTexture5, locationTexture6;
+	locationTexture1, locationTexture2, locationTexture3, locationTexture4, locationTexture5, locationTexture6, locationTexture7;
 	
 	private int locationBlendMap;
 
@@ -49,6 +49,7 @@ public class WhiteTerrainShader extends ShaderProgram {
 		locationTexture4 = super.getUniformLocation("texture4");
 		locationTexture5 = super.getUniformLocation("texture5");
 		locationTexture6 = super.getUniformLocation("texture6");
+		locationTexture7 = super.getUniformLocation("texture7");
 		locationBlendMap = super.getUniformLocation("blendMap");
 	}
 
@@ -61,7 +62,8 @@ public class WhiteTerrainShader extends ShaderProgram {
 		super.loadInt(locationTexture4, 4);
 		super.loadInt(locationTexture5, 5);
 		super.loadInt(locationTexture6, 6);
-		super.loadInt(locationBlendMap, 7);
+		super.loadInt(locationTexture7, 7);
+		super.loadInt(locationBlendMap, 8);
 	}
 	public void loadTransformMatrix(Matrix4f matrix) {super.loadMatrix(locationTransformMatrix, matrix);}
 	public void loadProjectionMatrix(Matrix4f matrix) {super.loadMatrix(locationProjectionMatrix, matrix);}
