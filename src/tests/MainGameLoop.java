@@ -87,7 +87,7 @@ public class MainGameLoop {
 			//entity.rotate(0,0.3F,0);
 			camera.move();
 			//camera.yaw += 0.1;
-			light.position.x = 400 + (float)Math.sin((float)frameCount/100F)*400F;
+			light.position.x = 400 + (float)Math.sin((float)frameCount/250F)*400F;
 			
 			renderer.processTerrain(terrain1);
 			//renderer.processTerrain(terrain2);

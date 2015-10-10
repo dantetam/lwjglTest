@@ -83,7 +83,7 @@ public class LevelManager {
 				Vector3f size = new Vector3f(data[6], data[7], data[8]);
 				//String texture = (int)data[9] > 200 ? "partTexture" : "colorTexture";
 				String texture = "colorTexture" + (int)data[9];
-				Entity en = newBox(pos, rot, size, texture);
+				Entity en = newWedge(pos, rot, size, texture);
 				entities.add(en);
 				
 				String output = "";
@@ -264,7 +264,7 @@ public class LevelManager {
 		
 		//TODO: texture.transparent = true;
 		//TODO: texture.fastLighting = true;
-		texture.shineDamper = 1;
+		texture.shineDamper = 10;
 		texture.reflectiveness = 1;
 		
 		TexturedModel texturedModel = new TexturedModel(model, texture);

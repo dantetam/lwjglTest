@@ -30,7 +30,7 @@ public class Data {
 		    for (int r = 0; r < width; r++)
 		    	for (int c = 0; c < width; c++)
     				bi.setRGB(r, c, col);
-		    File outputfile = new File("res/colorTexture"+brickColor+".png");
+		    File outputfile = new File("res/colorTextures/colorTexture"+brickColor+".png");
 		    ImageIO.write(bi, "png", outputfile);
 		} catch (Exception e) {
 		    e.printStackTrace();
