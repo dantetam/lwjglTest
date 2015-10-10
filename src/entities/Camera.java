@@ -47,6 +47,14 @@ public class Camera {
 			yaw -= 0.2;
 		if (Keyboard.isKeyDown(Keyboard.KEY_E))
 			yaw += 0.2;
+		if (Keyboard.isKeyDown(Keyboard.KEY_H))
+			yaw -= 0.2;
+		if (Keyboard.isKeyDown(Keyboard.KEY_K))
+			yaw += 0.2;
+		if (Keyboard.isKeyDown(Keyboard.KEY_U))
+			pitch -= 0.2;
+		if (Keyboard.isKeyDown(Keyboard.KEY_J))
+			pitch += 0.2;
 	}
 
 }
