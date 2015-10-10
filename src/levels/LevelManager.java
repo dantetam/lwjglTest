@@ -83,7 +83,7 @@ public class LevelManager {
 				Vector3f size = new Vector3f(data[6], data[7], data[8]);
 				//String texture = (int)data[9] > 200 ? "partTexture" : "colorTexture";
 				String texture = "colorTexture" + (int)data[9];
-				Entity en = newWedge(pos, rot, size, texture);
+				Entity en = newBox(pos, rot, size, texture);
 				entities.add(en);
 				
 				String output = "";
