@@ -44,9 +44,12 @@ public class LevelManager {
 				"stallTexture"
 				));*/
 		Group group1 = loadFromXML("someisland.txt");
-		group1.move(0, 35, 0);
-		groups.add(group1);
+		group1.move(400, 100, 400);
 		
+		group1.entities.add(newObjectFromModel(new Vector3f(0,0,0), new Vector3f(0,0,0), new Vector3f(50,50,50), 1, "haas", "colorTexture194"));
+		group1.entities.add(newObjectFromModel(new Vector3f(0,0,0), new Vector3f(0,0,0), new Vector3f(50,100,50), 1, "haas", "colorTexture194"));
+		
+		groups.add(group1);
 	}
 	
 	public static Group loadFromXML(String fileName)
@@ -78,15 +81,16 @@ public class LevelManager {
 						(float)Math.toDegrees(data[5])
 						);
 				Vector3f size = new Vector3f(data[6], data[7], data[8]);
-				Entity en = newBox(pos, rot, size, "bluePlasma");
+				//String texture = (int)data[9] > 200 ? "partTexture" : "colorTexture";
+				String texture = "colorTexture" + data[9];
+				Entity en = newBox(pos, rot, size, texture);
 				entities.add(en);
 				
 				String output = "";
 				for (int i = 0; i < data.length; i++)
-				{
 					output += data[i] + ",";
-				}
-				System.out.println(output);
+
+				//System.out.println(output);
 			}
 			reader.close();
 		} catch (Exception e) {e.printStackTrace();}

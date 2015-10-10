@@ -7,6 +7,7 @@ import models.TexturedModel;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.util.vector.Vector3f;
 
+import data.Data;
 import entities.Camera;
 import entities.Entity;
 import entities.Light;
@@ -22,9 +23,9 @@ public class MainGameLoop {
 	
 	public int frameCount = 0;
 	
-	
 	public static void main(String[] args)
 	{
+		Data.setup();
 		new MainGameLoop();
 	}
 	
@@ -76,7 +77,7 @@ public class MainGameLoop {
 		//Terrain terrain3 = new Terrain(0,-1,loader,texturePack,blendMap,"heightmap");
 		//Terrain terrain4 = new Terrain(-1,-1,loader,texturePack,blendMap,"heightmap");
 		
-		Light light = new Light(new Vector3f(0,50,0), new Vector3f(1,1,1));
+		Light light = new Light(new Vector3f(800,50,800), new Vector3f(1,1,1));
 		Camera camera = new Camera();
 		
 		//Keep updating the display until the user exits

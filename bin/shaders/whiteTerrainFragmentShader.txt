@@ -28,35 +28,36 @@ void main(void)
 	vec4 totalColor;
 	vec2 tiledCoords = passTextureCoords * 20.0;
 		
-	if (blendMapColor.r < 0.02)
+	float v = blendMapColor.r;
+	if (v < 0.02)
 	{
 		totalColor = texture(backgroundTexture, tiledCoords);
 	}
-	else if (blendMapColor.r <= 1.0/8.0)
+	else if (v <= 1.0/8.0)
 	{
 	    totalColor = texture(texture1, tiledCoords);
 	}
-	else if (blendMapColor.r <= 2.0/8.0)
+	else if (v <= 2.0/8.0)
 	{
 		totalColor = texture(texture2, tiledCoords);
 	}
-	else if (blendMapColor.r <= 3.0/8.0)
+	else if (v <= 3.0/8.0)
 	{
 		totalColor = texture(texture3, tiledCoords);	
 	}
-	else if (blendMapColor.r <= 4.0/8.0)
+	else if (v <= 4.0/8.0)
 	{
 		totalColor = texture(texture4, tiledCoords);	
 	}
-	else if (blendMapColor.r <= 5.0/8.0)
+	else if (v <= 5.0/8.0)
 	{
 		totalColor = texture(texture5, tiledCoords);	
 	}
-	else if (blendMapColor.r <= 6.0/8.0)
+	else if (v <= 6.0/8.0)
 	{
 		totalColor = texture(texture6, tiledCoords);	
 	}
-	else if (blendMapColor.r <= 7.0/8.0)
+	else if (v <= 7.0/8.0)
 	{
 		totalColor = texture(texture7, tiledCoords);	
 	}
