@@ -277,7 +277,7 @@ public class LevelManager {
 	public static Entity newWedge(Vector3f position, Vector3f rotation, Vector3f size, String textureName)
 	{
 		float x = size.x/2, y = size.y/2, z = size.z/2;
-		float[] vertices = { //Not a clue what's going on here. Just a guess at a triangular prism.			
+		/*float[] vertices = { //Not a clue what's going on here. Just a guess at a triangular prism.			
 				x,y,z,	
 				x,-y,-z,	
 				-x,-y,-z,
@@ -301,123 +301,99 @@ public class LevelManager {
 				x,-y,-z,
 				x,y,z,
 				x,-y,z
+		};*/
+		float[] vertices = {
+		
+		    x, 0f, 0f,
+		    0f, 0f, 0f,
+		    0f, y, 0f,
+
+		    x, 0f, z,
+		    0f, 0f, z,
+		    0f, y, z,
+		    
+		    0f, 0f, 0f,
+		    x, 0f, 0f,
+		    x, 0f, z,
+		    
+		    x, 0f, 0f,
+		    x, 0f, z,
+		    0f, 0f, z,
+
+		    0f, 0f, 0f,
+		    0f, y, 0f,
+		    0f, y, z,
+		    
+		    0f, y, 0f,
+		    0f, y, z,
+		    0f, 0f, z,
+
+		    0f, y, 0f,
+		    x, 0f, 0f,
+		    x, 0f, z,
+		    
+		    x, 0f, 0f,
+		    x, 0f, z,
+		    0f, y, z
 		};
 		
-		/*float[] normals = {
-				0,0,-1,
-				0,0,-1,
-				0,0,-1,
-				0,0,-1,
-				
-				0,0,1,
-				0,0,1,
-				0,0,1,
-				0,0,1,
-				
-				1,0,0,
-				1,0,0,
-				1,0,0,
-				1,0,0,
-				
-				-1,0,0,
-				-1,0,0,
-				-1,0,0,
-				-1,0,0,
-				
-				0,1,0,
-				0,1,0,
-				0,1,0,
-				0,1,0,
-				
-				0,-1,0,
-				0,-1,0,
-				0,-1,0,
-				0,-1,0,
-				
-				//1,0,0,
-				//1,0,0,
-				//-1,0,0,
-				//-1,0,0,
-				
-				//0,1,0,
-				//0,1,0,
-				//0,-1,0,
-				//0,-1,0
-			};*/
+		int[] indices = {
+				0,1,2,
+				3,4,5,
+				6,7,8,
+				7,8,9,
+				10,11,12,
+				11,12,13,
+				14,15,16,
+				15,16,17
+		};
+		
 		
 		float[] normals = {
-				0,0,1,
-				0,0,1,
-				0,0,1,
-				0,0,1,
-				
-				0,0,-1,
-				0,0,-1,
-				0,0,-1,
-				0,0,-1,
-				
-				-1,0,0,
-				-1,0,0,
-				-1,0,0,
-				-1,0,0,
-				
-				1,0,0,
-				1,0,0,
-				1,0,0,
-				1,0,0,
-				
-				0,-1,0,
-				0,-1,0,
-				0,-1,0,
-				0,-1,0,
+				0,1,0,
+				0,1,0,
+				0,1,0,
 				
 				0,1,0,
+				0,1,0,
+				0,1,0,
+				
+				0,1,0,
+				0,1,0,
+				0,1,0,
+				
+				0,1,0,
+				0,1,0,
+				0,1,0,
+				
+				0,1,0,
+				0,1,0,
+				0,1,0,
+				
 				0,1,0,
 				0,1,0,
 				0,1,0,
 			};
 		
-		int[] indices = {
-				0,1,3,	
-				3,1,2,	
-				4,5,7,
-				7,5,6,
-				8,9,11,
-				11,9,10,
-				12,13,15,
-				15,13,14,	
-				16,17,19,
-				19,17,18,
-				20,21,23,
-				23,21,22
-		};
-		
-		
 		float[] textureCoords = {
 				0,0,
 				0,1,
 				1,1,
-				1,0,			
 				0,0,
 				0,1,
 				1,1,
-				1,0,			
 				0,0,
 				0,1,
 				1,1,
-				1,0,
 				0,0,
 				0,1,
 				1,1,
-				1,0,
 				0,0,
 				0,1,
 				1,1,
-				1,0,
 				0,0,
 				0,1,
 				1,1,
-				1,0
 		};
 	
 		RawModel model = loader.loadToVAO(vertices, textureCoords, normals, indices);
