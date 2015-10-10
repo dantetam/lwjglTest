@@ -46,8 +46,8 @@ public class LevelManager {
 		Group group1 = loadFromXML("someisland.txt");
 		group1.move(400, 100, 400);
 		
-		group1.entities.add(newObjectFromModel(new Vector3f(0,0,0), new Vector3f(0,0,0), new Vector3f(50,50,50), 1, "haas", "colorTexture194"));
-		group1.entities.add(newObjectFromModel(new Vector3f(0,0,0), new Vector3f(0,0,0), new Vector3f(50,100,50), 1, "haas", "colorTexture194"));
+		//group1.entities.add(newObjectFromModel(new Vector3f(0,0,0), new Vector3f(0,0,0), new Vector3f(50,50,50), 1, "haas", "colorTexture194"));
+		//group1.entities.add(newObjectFromModel(new Vector3f(0,0,0), new Vector3f(0,0,0), new Vector3f(50,100,50), 1, "haas", "colorTexture194"));
 		
 		groups.add(group1);
 	}
@@ -82,7 +82,7 @@ public class LevelManager {
 						);
 				Vector3f size = new Vector3f(data[6], data[7], data[8]);
 				//String texture = (int)data[9] > 200 ? "partTexture" : "colorTexture";
-				String texture = "colorTexture" + data[9];
+				String texture = "colorTexture" + (int)data[9];
 				Entity en = newBox(pos, rot, size, texture);
 				entities.add(en);
 				
@@ -139,6 +139,167 @@ public class LevelManager {
 				-x,-y,z,
 				-x,-y,-z,
 				x,-y,-z,
+				x,-y,z
+		};
+		
+		/*float[] normals = {
+				0,0,-1,
+				0,0,-1,
+				0,0,-1,
+				0,0,-1,
+				
+				0,0,1,
+				0,0,1,
+				0,0,1,
+				0,0,1,
+				
+				1,0,0,
+				1,0,0,
+				1,0,0,
+				1,0,0,
+				
+				-1,0,0,
+				-1,0,0,
+				-1,0,0,
+				-1,0,0,
+				
+				0,1,0,
+				0,1,0,
+				0,1,0,
+				0,1,0,
+				
+				0,-1,0,
+				0,-1,0,
+				0,-1,0,
+				0,-1,0,
+				
+				//1,0,0,
+				//1,0,0,
+				//-1,0,0,
+				//-1,0,0,
+				
+				//0,1,0,
+				//0,1,0,
+				//0,-1,0,
+				//0,-1,0
+			};*/
+		
+		float[] normals = {
+				0,0,1,
+				0,0,1,
+				0,0,1,
+				0,0,1,
+				
+				0,0,-1,
+				0,0,-1,
+				0,0,-1,
+				0,0,-1,
+				
+				-1,0,0,
+				-1,0,0,
+				-1,0,0,
+				-1,0,0,
+				
+				1,0,0,
+				1,0,0,
+				1,0,0,
+				1,0,0,
+				
+				0,-1,0,
+				0,-1,0,
+				0,-1,0,
+				0,-1,0,
+				
+				0,1,0,
+				0,1,0,
+				0,1,0,
+				0,1,0,
+			};
+		
+		int[] indices = {
+				0,1,3,	
+				3,1,2,	
+				4,5,7,
+				7,5,6,
+				8,9,11,
+				11,9,10,
+				12,13,15,
+				15,13,14,	
+				16,17,19,
+				19,17,18,
+				20,21,23,
+				23,21,22
+		};
+		
+		
+		float[] textureCoords = {
+				0,0,
+				0,1,
+				1,1,
+				1,0,			
+				0,0,
+				0,1,
+				1,1,
+				1,0,			
+				0,0,
+				0,1,
+				1,1,
+				1,0,
+				0,0,
+				0,1,
+				1,1,
+				1,0,
+				0,0,
+				0,1,
+				1,1,
+				1,0,
+				0,0,
+				0,1,
+				1,1,
+				1,0
+		};
+	
+		RawModel model = loader.loadToVAO(vertices, textureCoords, normals, indices);
+		ModelTexture texture = new ModelTexture(loader.loadTexture(textureName));
+		
+		//TODO: texture.transparent = true;
+		//TODO: texture.fastLighting = true;
+		texture.shineDamper = 1;
+		texture.reflectiveness = 1;
+		
+		TexturedModel texturedModel = new TexturedModel(model, texture);
+		Entity entity = new Entity(texturedModel,position,rotation.x,rotation.y,rotation.z,1);
+		entity.scale = 1;
+		
+		return entity;
+	}
+	
+	public static Entity newWedge(Vector3f position, Vector3f rotation, Vector3f size, String textureName)
+	{
+		float x = size.x/2, y = size.y/2, z = size.z/2;
+		float[] vertices = { //Not a clue what's going on here. Just a guess at a triangular prism.			
+				x,y,z,	
+				x,-y,-z,	
+				-x,-y,-z,
+			
+				x,-y,-z,
+				x,-y,z,
+				-x,-y,z,
+				
+				-x,y,z,
+				x,y,z,
+				-x,-y,-z,
+				
+				x,-y,-z,
+				-x,-y,z,
+				-x,-y,-z,
+				
+				-x,y,z,
+				-x,-y,z,
+				-x,-y,-z,
+				
+				x,-y,-z,
+				x,y,z,
 				x,-y,z
 		};
 		

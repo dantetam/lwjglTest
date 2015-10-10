@@ -19,7 +19,7 @@ public class Data {
 	{
 		try {
 			int width = 256;
-		    BufferedImage bi = new BufferedImage(width, width, BufferedImage.TYPE_INT_RGB);
+		    BufferedImage bi = new BufferedImage(width, width, BufferedImage.TYPE_INT_RGB); //no alpha here
 		    Color color = brickColorMap.get(brickColor);
     		int red = (int)(color.r*255);
 			int green = (int)(color.g*255);
