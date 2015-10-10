@@ -6,37 +6,66 @@ import java.util.HashMap;
 
 import javax.imageio.ImageIO;
 
+import fractionalMotion.DiamondSquare;
+
 public class Data {
 
 	public static HashMap<Integer, Color> brickColorMap;
-	
+
 	public static void setup()
 	{
 		setupColors();
 	}
-	
+
 	public static void createTexture(int brickColor)
 	{
 		try {
 			int width = 256;
-		    BufferedImage bi = new BufferedImage(width, width, BufferedImage.TYPE_INT_RGB); //no alpha here
-		    Color color = brickColorMap.get(brickColor);
-    		int red = (int)(color.r*255);
+			BufferedImage bi = new BufferedImage(width, width, BufferedImage.TYPE_INT_RGB); //no alpha here
+			Color color = brickColorMap.get(brickColor);
+			int red = (int)(color.r*255);
 			int green = (int)(color.g*255);
 			int blue = (int)(color.b*255);
 			//int alpha = 255;
 			//int col = (alpha << 24) | (red << 16) | (green << 8) | blue;
 			int col = (red << 16) | (green << 8) | blue;
-		    for (int r = 0; r < width; r++)
-		    	for (int c = 0; c < width; c++)
-    				bi.setRGB(r, c, col);
-		    File outputfile = new File("res/colorTextures/colorTexture"+brickColor+".png");
-		    ImageIO.write(bi, "png", outputfile);
+			for (int r = 0; r < width; r++)
+				for (int c = 0; c < width; c++)
+					bi.setRGB(r, c, col);
+			File outputfile = new File("res/colorTexture"+brickColor+".png");
+			ImageIO.write(bi, "png", outputfile);
 		} catch (Exception e) {
-		    e.printStackTrace();
+			e.printStackTrace();
 		}
 	}
-	
+
+	public static void createHeightMap(String fileLocation)
+	{
+		//Why Math.floor() returns a double is beyond me...
+		//int adj = (int)Math.floor(Math.log(width)/Math.log(2)) + 1;
+		try {
+			BufferedImage bi = new BufferedImage(256, 256, BufferedImage.TYPE_INT_RGB); //no alpha here
+
+			double[][] temp = DiamondSquare.makeTable(50,50,50,50,257); //default size is 256^2
+			DiamondSquare ds = new DiamondSquare(temp);
+			//ds.diamond(0, 0, 4);
+			ds.dS(0, 0, 256, 125, 0.4, false, true);
+
+			for (int r = 0; r < 256; r++)
+				for (int c = 0; c < 256; c++)
+				{
+					if (r % 8 == 0) System.out.println(ds.t[r][c]);
+					if (ds.t[r][c] > 255) ds.t[r][c] = 255;
+					int col = ((int)(ds.t[r][c]) << 16) | ((int)(ds.t[r][c]) << 8) | (int)(ds.t[r][c]);
+					bi.setRGB(r, c, col);
+				}
+			File outputfile = new File(fileLocation);
+			ImageIO.write(bi, "png", outputfile);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	private static void setupColors()
 	{
 		brickColorMap = new HashMap<Integer, Color>();

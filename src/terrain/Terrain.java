@@ -8,6 +8,7 @@ import javax.imageio.ImageIO;
 
 import org.lwjgl.util.vector.Vector3f;
 
+import data.Data;
 import models.RawModel;
 import render.Loader;
 import textures.ModelTexture;
@@ -39,9 +40,15 @@ public class Terrain {
 	{
 		BufferedImage image = null;
 		try {
+			Data.createHeightMap("res/"+heightMap+".png");
 			image = ImageIO.read(new File("res/"+heightMap+".png"));
 		} catch (IOException e) {
+			//e.printStackTrace();
+			Data.createHeightMap("res/"+heightMap+".png");
+			try {image = ImageIO.read(new File("res/"+heightMap+".png"));} catch (IOException e1) {e1.printStackTrace();}
+		} catch (Exception e) {
 			e.printStackTrace();
+			System.err.println("Could not generate height map");
 		}
 		
 		int VERTEX_COUNT = image.getHeight();

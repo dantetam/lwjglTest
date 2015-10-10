@@ -84,7 +84,7 @@ public class Loader {
 		catch (Exception e) 
 		{
 			Data.createTexture(Integer.parseInt(fileName.substring(12)));
-			try {texture = TextureLoader.getTexture("PNG",new FileInputStream("res/colorTextures/"+fileName+".png"));} catch (IOException e1) {e1.printStackTrace();}
+			try {texture = TextureLoader.getTexture("PNG",new FileInputStream("res/"+fileName+".png"));} catch (IOException e1) {e1.printStackTrace();}
 			GL30.glGenerateMipmap(GL11.GL_TEXTURE_2D);
 			GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR_MIPMAP_LINEAR);
 			GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL14.GL_TEXTURE_LOD_BIAS, -0.4f);
