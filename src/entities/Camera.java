@@ -16,7 +16,7 @@ public class Camera {
 
 	public void move()
 	{
-		float step = 1f;
+		float step = 2.5f;
 		if (Keyboard.isKeyDown(Keyboard.KEY_I))
 			position.y -= step;
 		if (Keyboard.isKeyDown(Keyboard.KEY_O))

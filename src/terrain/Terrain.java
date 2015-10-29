@@ -42,11 +42,12 @@ public class Terrain {
 		try {
 			Data.createHeightMap("res/"+heightMap+".png");
 			image = ImageIO.read(new File("res/"+heightMap+".png"));
-		} catch (IOException e) {
+		} /*catch (IOException e) {
 			//e.printStackTrace();
 			Data.createHeightMap("res/"+heightMap+".png");
 			try {image = ImageIO.read(new File("res/"+heightMap+".png"));} catch (IOException e1) {e1.printStackTrace();}
-		} catch (Exception e) {
+		}*/ 
+		catch (Exception e) {
 			e.printStackTrace();
 			System.err.println("Could not generate height map");
 		}

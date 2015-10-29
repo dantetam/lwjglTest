@@ -46,16 +46,17 @@ public class Data {
 		try {
 			BufferedImage bi = new BufferedImage(256, 256, BufferedImage.TYPE_INT_RGB); //no alpha here
 
-			double[][] temp = DiamondSquare.makeTable(50,50,50,50,257); //default size is 256^2
+			double[][] temp = DiamondSquare.makeTable(0,0,0,0,257); //default size is 256^2
 			DiamondSquare ds = new DiamondSquare(temp);
 			//ds.diamond(0, 0, 4);
-			ds.dS(0, 0, 256, 125, 0.4, false, true);
+			ds.dS(0, 0, 256, 80, 0.6, false, true);
 
 			for (int r = 0; r < 256; r++)
 				for (int c = 0; c < 256; c++)
 				{
-					if (r % 8 == 0) System.out.println(ds.t[r][c]);
-					if (ds.t[r][c] > 255) ds.t[r][c] = 255;
+					//if (r % 8 == 0) System.out.println(ds.t[r][c]);
+					if (ds.t[r][c] > 255) ds.t[r][c] = 255; //upper and lower bound on white -> 0-255
+					else if (ds.t[r][c] < 0) ds.t[r][c] = 0;
 					int col = ((int)(ds.t[r][c]) << 16) | ((int)(ds.t[r][c]) << 8) | (int)(ds.t[r][c]);
 					bi.setRGB(r, c, col);
 				}
